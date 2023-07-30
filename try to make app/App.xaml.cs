@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ScottPlot;
 using try_to_make_app;
 namespace try_to_make_app
 {
@@ -14,14 +15,6 @@ namespace try_to_make_app
     
     public partial class App : Application
     {
-        [STAThread]
-        static void Main()
-        {
-            App app = new App();
-            try_to_make_app.MainWindow window = new MainWindow();
-            window.Title = "tetst";
-            app.Run(window);
-                
-        }
+        
     }
 }

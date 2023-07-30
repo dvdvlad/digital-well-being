@@ -3,10 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
         xmlns:local="clr-namespace:try_to_make_app"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="400" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ScottPlot:WpfPlot Grid.Row="0" Grid.Column="0" x:Name="CirculeDioagram" Width="200" Height="200"/>
+        <ScottPlot:WpfPlot Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="Dioagram" Width="555" Height="200"/>
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3" x:Name="WrapPanel">
 
+        </WrapPanel>
+                
     </Grid>
 </Window>
