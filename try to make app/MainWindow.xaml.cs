@@ -44,10 +44,10 @@ namespace try_to_make_app
             
             
             List<string> Apps = new List<string>() { "Telegram","Edge", "warframe","vs code","vivaldi","sumblime","obsidian","wallpaper engin"};
-            foreach (string App in Apps)
+            foreach (string app in Apps)
             {
                 Button button = new Button();
-                button.Content = App;
+                button.Content = app;
                 button.Width = 100;
                 button.Height = 20;
                 WrapPanel.Children.Add(button);
