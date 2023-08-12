@@ -9,8 +9,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
       <PackageReference Include="ScottPlot.WPF" Version="4.1.65" />
     </ItemGroup>
+
+
 
 </Project>

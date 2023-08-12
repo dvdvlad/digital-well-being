@@ -1,0 +1,65 @@
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+
+namespace try_to_make_app.Database_things;
+[Serializable]
+public class AppModel: INotifyPropertyChanged
+{
+    private Process _process;
+    private string name;
+    private DateTime worktimetoday;
+    private DateTime worktimeonweek;
+
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+            OnPropertyChanged("Name");
+        }
+    }
+
+    public DateTime WorkTimeToDay
+    {
+        get
+        {
+            return worktimetoday;
+        }
+        set
+        {
+            worktimetoday = value;
+            OnPropertyChanged("DatatimeToDay");
+        }
+    }
+
+    public DateTime WorkTimeOnWeek
+    {
+        get
+        {
+            return worktimeonweek;
+        }
+        set
+        {
+            worktimeonweek = value;
+            OnPropertyChanged("DatatimeOnWeek");
+        }
+    }
+
+    public AppModel(Process process, string name)
+    {
+        _process = process;
+        this.name = name;
+    }
+    public event PropertyChangedEventHandler PropertyChanged;
+    public void OnPropertyChanged([CallerMemberName]string prop = "")
+    {
+        if (PropertyChanged != null)
+            PropertyChanged(this, new PropertyChangedEventArgs(prop));
+    }
+}

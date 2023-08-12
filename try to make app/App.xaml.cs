@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using ScottPlot;
 using try_to_make_app;
+using try_to_make_app.Thread;
+
 namespace try_to_make_app
 {
     /// <summary>
@@ -15,6 +17,13 @@ namespace try_to_make_app
     
     public partial class App : Application
     {
-        
+        // [STAThread]
+        // public static void Main()
+        // {
+        //     App app = new App();
+        //     try_to_make_app.MainWindow window = new MainWindow();
+        //     window.Title = "test";
+        //     app.Run(window);
+        // }
     }
 }
