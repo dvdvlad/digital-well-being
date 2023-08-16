@@ -9,7 +9,7 @@ public class AppModel: INotifyPropertyChanged
 {
     private Process _process;
     private string name;
-    private DateTime worktimetoday;
+    private double worktimetoday;
     private DateTime worktimeonweek;
 
     public string Name
@@ -25,7 +25,7 @@ public class AppModel: INotifyPropertyChanged
         }
     }
 
-    public DateTime WorkTimeToDay
+    public double  WorkTimeToDay
     {
         get
         {
@@ -51,10 +51,11 @@ public class AppModel: INotifyPropertyChanged
         }
     }
 
-    public AppModel(Process process, string name)
+    public AppModel(Process process, string name,double worktimetoday)
     {
         _process = process;
         this.name = name;
+        this.worktimetoday = worktimetoday;
     }
     public event PropertyChangedEventHandler PropertyChanged;
     public void OnPropertyChanged([CallerMemberName]string prop = "")

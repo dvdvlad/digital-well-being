@@ -6,10 +6,11 @@
         xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
         xmlns:databaseThings="clr-namespace:try_to_make_app.Database_things"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="800">
+        Title="MainWindow" Height="500" Width="1000">
     <!-- <Window.DataContext> -->
     <!--     <databaseThings:AppViewModel></databaseThings:AppViewModel> -->
     <!-- </Window.DataContext> -->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -20,17 +21,10 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ScottPlot:WpfPlot Grid.Row="0" Grid.Column="0" x:Name="CirculeDioagram" Width="200" Height="200"/>
-        <ScottPlot:WpfPlot Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="Dioagram" Width="555" Height="200"/>
-        <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Apps}" SelectedItem="{Binding SelctedApp }">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel>
-                        <Button Content="{Binding Path=Name}"/>
-                    </WrapPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-                
+        <ScottPlot:WpfPlot Grid.Row="0" Grid.Column="0" x:Name="CirculeDioagram" />
+        <ScottPlot:WpfPlot Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="Dioagram" />
+        
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3" Name="WrapPanel">
+        </WrapPanel>
     </Grid>
 </Window>

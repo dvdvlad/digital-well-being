@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using ScottPlot;
 using ScottPlot.Plottable;
+using ScottPlot.Renderable;
 using try_to_make_app.Database_things;
 using try_to_make_app.Thread;
 using Color = System.Drawing.Color;
@@ -45,43 +46,66 @@ namespace try_to_make_app
             {
                 DataContext = appViewModel;
             }
-
-            double[] valuesCirculeDiograma = { 1, 2, 3, 45 };
+            appViewModel.Apps = save.LoadDatabase();
+            
+            
             CirculeDioagram.Plot.Frameless();
-            PiePlot Chart  = CirculeDioagram.Plot.AddPie(valuesCirculeDiograma);
-            Chart.Explode = true;
-            Chart.DonutSize = .6;
-            Chart.Size = 0.75;
 
             double[] valuesDiograma =  { 13,12,21,11,4,2,7};
             double[] Day_of_The_Week = { 1, 2,3,4,5,6,7};
             string[] Day_of_The_Week_String = { "Monday","Thuesday", "Wensday","Thursday","Friday","Saturday","Sunday"};
             Dioagram.Plot.AddBar(valuesDiograma,Day_of_The_Week);
             Dioagram.Plot.XTicks(Day_of_The_Week,Day_of_The_Week_String);
-            
+
+            ObservableCollection<AppModel> appModelsCollection = save.LoadDatabase();
+            CirculeDioagram.Refresh();
             SecondThread secondThread = new SecondThread();
             System.Threading.Thread SaveThread = new System.Threading.Thread(Save) { IsBackground = true };
             SaveThread.Start();
             
+        }
 
+        private void AppsOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (appViewModel.Apps != null)
+            {
+                List<double> CirculeDay = new List<double>();
+                List<string> CirculeLabels = new List<string>();
+                WrapPanel.Children.Clear();
+                foreach (var app in appViewModel.Apps)
+                {
+                    Button button = new Button();
+                    button.Content = app.Name;
+                    Thickness thickness = new Thickness(5);
+                    button.Margin = thickness;
+                    WrapPanel.Children.Add(button);
+                    CirculeDay.Add(app.WorkTimeToDay);
+                    CirculeLabels.Add(app.Name);
+                }
+
+                double[] valuesCirculeDiogram =CirculeDay.ToArray();
+                
+                string[] labelsCirculeDiogram = CirculeLabels.ToArray();
+                
+                PiePlot Chart  = CirculeDioagram.Plot.AddPie(valuesCirculeDiogram);
+                // Chart.Explode = true;
+                // Chart.DonutSize = .6;
+                Chart.SliceLabels = labelsCirculeDiogram;
+                Chart.ShowLabels = true;
+                // CirculeDioagram.Plot.Legend();
+                CirculeDioagram.Refresh();
+                
+            }
         }
 
         public void Save()
         {   
             while (true)
             {
-                System.Threading.Thread.Sleep(10000);   
                 this.Dispatcher.Invoke(() => {save.SaveDatabase(appViewModel);});
-                
-
+                appViewModel.Apps.CollectionChanged += AppsOnCollectionChanged;
+                System.Threading.Thread.Sleep(10000);
             }
         }
-
-        private void SaveCallback()
-        {
-            SaveDelegate d = new SaveDelegate(SaveCallback);
-            Dispatcher.Invoke(d);
-        }
-        
     }
 }

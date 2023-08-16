@@ -132,7 +132,8 @@ public class Save
 
                     if (StateOfCheck)
                     {
-                        AppModel appModel = new AppModel(pr, pr.ProcessName);
+                        double worktoday = (DateTime.Now - pr.StartTime).TotalMinutes;
+                        AppModel appModel = new AppModel(pr, pr.ProcessName, worktoday);
                         Apps.Add(appModel);
                     }
                 }
