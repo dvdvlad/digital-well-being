@@ -51,9 +51,9 @@ public class AppModel: INotifyPropertyChanged
         }
     }
 
-    public AppModel(Process process, string name,double worktimetoday)
+    public AppModel(string name,double worktimetoday)
     {
-        _process = process;
+        _process = new Process();
         this.name = name;
         this.worktimetoday = worktimetoday;
     }

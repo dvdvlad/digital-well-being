@@ -38,25 +38,8 @@ public class Save
     
     public void SaveDatabase(AppViewModel appViewModel)
     {
-        ObservableCollection<AppModel> WorkProcess = WorkGetApps();
         if (appViewModel.Apps != null)
         {
-            foreach (var WorkPr in WorkProcess)
-            {
-                AppModel App = CheckOnExisting(WorkPr, appViewModel.Apps);
-                if (App != null)
-                {
-                    
-                    appViewModel.Apps.Remove(App);
-                    appViewModel.Apps.Add(WorkPr);
-                }
-                else
-                {
-                    appViewModel.Apps.Add(WorkPr);
-                }
-                
-            }
-            
             using (StreamWriter sw = File.CreateText(PATH))
             {
                 string forsave = JsonConvert.SerializeObject(appViewModel.Apps);
@@ -65,7 +48,7 @@ public class Save
         }
         else
         {
-            appViewModel.Apps = WorkProcess;
+            appViewModel.Apps = null;
             using (StreamWriter sw = File.CreateText(PATH))
             {
                 string forsave = JsonConvert.SerializeObject(appViewModel.Apps);
@@ -119,7 +102,7 @@ public class Save
                     foreach (var SyPr in SystemProcess)
                     {
 
-                        if (pr.ProcessName != SyPr)
+                        if (pr.ProcessName != SyPr) 
                         {
                             StateOfCheck = true;
                         }
@@ -133,7 +116,7 @@ public class Save
                     if (StateOfCheck)
                     {
                         double worktoday = (DateTime.Now - pr.StartTime).TotalMinutes;
-                        AppModel appModel = new AppModel(pr, pr.ProcessName, worktoday);
+                        AppModel appModel = new AppModel(pr.ProcessName, worktoday);
                         Apps.Add(appModel);
                     }
                 }

@@ -13,18 +13,16 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ScottPlot:WpfPlot Grid.Row="0" Grid.Column="0" x:Name="CirculeDioagram" />
-        <ScottPlot:WpfPlot Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="Dioagram" />
-        
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="3" Name="WrapPanel">
+        <ScottPlot:WpfPlot Grid.Column="0"   x:Name="CirculeDioagram"  Height="300" Width="300" HorizontalAlignment="Left"   />
+        <ScottPlot:WpfPlot Grid.Column="1"  x:Name="Dioagram"/>
+        <WrapPanel Grid.Row="1"  Name="WrapPanel" >
         </WrapPanel>
     </Grid>
 </Window>
