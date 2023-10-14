@@ -17,13 +17,12 @@ namespace try_to_make_app
     
     public partial class App : Application
     {
-        // [STAThread]
-        // public static void Main()
-        // {
-        //     App app = new App();
-        //     try_to_make_app.MainWindow window = new MainWindow();
-        //     window.Title = "test";
-        //     app.Run(window);
-        // }
+        [STAThread]
+        public static void Main()
+        {
+            App app = new App();
+            try_to_make_app.MainWindow window = new MainWindow();
+            app.Run(window);
+        }
     }
 }

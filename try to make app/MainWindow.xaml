@@ -1,4 +1,4 @@
-﻿<Window x:Class="try_to_make_app.MainWindow" x:Name="Window" 
+﻿<Window x:Class="try_to_make_app.MainWindow" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,10 +7,6 @@
         xmlns:databaseThings="clr-namespace:try_to_make_app.Database_things"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="1000">
-    <!-- <Window.DataContext> -->
-    <!--     <databaseThings:AppViewModel></databaseThings:AppViewModel> -->
-    <!-- </Window.DataContext> -->
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>

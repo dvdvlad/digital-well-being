@@ -1,13 +1,29 @@
 ﻿using System;
+using System.Dynamic;
 using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Threading;
 using try_to_make_app.Database_things;
 using try_to_make_app;
 namespace try_to_make_app.Thread;
 
 public class SecondThread
 {
+    private MainWindow _window;
+
+    public SecondThread(MainWindow window)
+    {
+        _window = window;
+    }
+    
     public void Main()
     {
-        // _save.SaveDatabase(MainWindow.appViewModel);
+        while (true)
+        {
+            Dispatcher.CurrentDispatcher.Invoke(() => { _window.appViewModel.UpdateList(); });
+            Dispatcher.CurrentDispatcher.Invoke(() => { Save.SaveDatabase(_window.appViewModel); });
+            System.Threading.Thread.Sleep(10000);
+        }
+        
     }
 }

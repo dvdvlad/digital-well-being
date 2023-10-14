@@ -12,31 +12,10 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace try_to_make_app.Database_things;
 
-public class Save
+public  class  Save
 {
-    delegate void ChangedDatabase();
-    private event ChangedDatabase Notify;
-    private string PATH =  $"{Environment.CurrentDirectory}\\AppDatabase.json";
-    public AppModel CheckOnExisting(AppModel ProcessOnCheck,ObservableCollection<AppModel> SavedApps)
-    {
-        AppModel Result = null;
-        foreach (var savedApp in SavedApps)
-        {
-            if (savedApp.Name == ProcessOnCheck.Name)
-            {
-                Result = savedApp;
-                break;
-            }
-            else
-            {
-                Result = null;
-            }
-        }
-
-        return Result;
-    }
-    
-    public void SaveDatabase(AppViewModel appViewModel)
+    private static  string PATH =  $"{Environment.CurrentDirectory}\\AppDatabase.json";
+    public static  void SaveDatabase(AppViewModel appViewModel)
     {
         if (appViewModel.Apps != null)
         {
@@ -66,7 +45,7 @@ public class Save
 
     }
 
-    public  ObservableCollection<AppModel> LoadDatabase()
+     public static ObservableCollection<AppModel> LoadDatabase()
     {
         bool fileexist = File.Exists(PATH);
         if (fileexist)
@@ -83,46 +62,5 @@ public class Save
             File.CreateText(PATH).Dispose();
             return null;
         }
-    }
-     private  ObservableCollection<AppModel> WorkGetApps()
-    {
-        ObservableCollection<AppModel> Apps = new ObservableCollection<AppModel>();
-
-        List<string> SystemProcess = new List<string>()
-        { "TextInputHost", "ApplicationFrameHost", "SystemSettings", "Taskmgr", "NVIDIA Share" };
-        Process[] processes = Process.GetProcesses();
-        foreach (var pr in processes)
-        {
-            if (pr.ProcessName != "")
-            {
-                if (pr.MainWindowTitle != "")
-                {
-
-                    bool StateOfCheck = false;
-                    foreach (var SyPr in SystemProcess)
-                    {
-
-                        if (pr.ProcessName != SyPr) 
-                        {
-                            StateOfCheck = true;
-                        }
-                        else
-                        {
-                            StateOfCheck = false;
-                            break;
-                        }
-                    }
-
-                    if (StateOfCheck)
-                    {
-                        double worktoday = (DateTime.Now - pr.StartTime).TotalMinutes;
-                        AppModel appModel = new AppModel(pr.ProcessName, worktoday);
-                        Apps.Add(appModel);
-                    }
-                }
-            }
-        }
-
-        return Apps;
     }
 }

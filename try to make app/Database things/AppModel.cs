@@ -7,7 +7,6 @@ namespace try_to_make_app.Database_things;
 [Serializable]
 public class AppModel: INotifyPropertyChanged
 {
-    private Process _process;
     private string name;
     private double worktimetoday;
     private DateTime worktimeonweek;
@@ -53,7 +52,6 @@ public class AppModel: INotifyPropertyChanged
 
     public AppModel(string name,double worktimetoday)
     {
-        _process = new Process();
         this.name = name;
         this.worktimetoday = worktimetoday;
     }

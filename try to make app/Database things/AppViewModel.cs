@@ -56,8 +56,14 @@ public class  AppViewModel
                 }
             }
         }
-
-        appArray[5] = OtherApps;
+        try
+        {
+            appArray[5] = OtherApps;
+        }
+        catch (Exception e)
+        {
+            
+        }
         int count = appArray.Length;
         for (int i = 6; i < count; i++)
         {
@@ -86,7 +92,7 @@ public class  AppViewModel
         List<AppModel> Apps = new List<AppModel>();
 
         List<string> SystemProcess = new List<string>()
-            { "TextInputHost", "ApplicationFrameHost", "SystemSettings", "Taskmgr", "NVIDIA Share" };
+            { "TextInputHost", "ApplicationFrameHost", "SystemSettings", "Taskmgr", "NVIDIA Share","WindowsTerminal" };
         Process[] processes = Process.GetProcesses();
         foreach (var pr in processes)
         {

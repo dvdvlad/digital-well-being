@@ -35,9 +35,7 @@ namespace try_to_make_app
         object locker  = new ();
         private static string path = $"{Environment.CurrentDirectory}\\AppDatabase.json";
         Save save = new Save();
-        private AppViewModel appViewModel = new AppViewModel();
-
-        delegate void SaveDelegate();
+        public AppViewModel appViewModel = new AppViewModel();
         
         public MainWindow()
         {   
@@ -46,37 +44,26 @@ namespace try_to_make_app
             {
                 DataContext = appViewModel;
             }
-            appViewModel.Apps = save.LoadDatabase();
-            appViewModel.Apps.CollectionChanged += AppsOnCollectionChanged;
+            appViewModel.Apps = Save.LoadDatabase();
+            appViewModel.PropertyChanged += AppViewModelOnPropertyChanged;
             
-            // CirculeDioagram.Plot.Frameless();
-
             double[] valuesDiograma =  { 13,12,21,11,4,2,7};
             double[] Day_of_The_Week = { 1, 2,3,4,5,6,7};
             string[] Day_of_The_Week_String = { "Monday","Thuesday", "Wensday","Thursday","Friday","Saturday","Sunday"};
             Dioagram.Plot.AddBar(valuesDiograma,Day_of_The_Week);
             Dioagram.Plot.XTicks(Day_of_The_Week,Day_of_The_Week_String);
-
-            ObservableCollection<AppModel> appModelsCollection = save.LoadDatabase();
-            CirculeDioagram.Refresh();
-            SecondThread secondThread = new SecondThread();
-            System.Threading.Thread SecondThread = new System.Threading.Thread(ThreadTwo) { IsBackground = true };
+            Thread.SecondThread secondThread = new SecondThread(this);
+            System.Threading.Thread SecondThread = new System.Threading.Thread(secondThread.Main) { IsBackground = true };
             SecondThread.Start();
             
         }
-        public void ThreadTwo()
-        {   
-            while (true)
-            {
-                this.Dispatcher.Invoke(() => { appViewModel.UpdateList(); });
-                this.Dispatcher.Invoke(() => {save.SaveDatabase(appViewModel);});
-                appViewModel.PropertyChanged += AppViewModelOnPropertyChanged;
-                appViewModel.Apps.CollectionChanged += AppsOnCollectionChanged;
-                System.Threading.Thread.Sleep(10000);
-            }
-        }
 
         private void AppViewModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            this.Dispatcher.Invoke(() => { AppViewModelOnPropertyChangedMethod(); });
+        }
+
+        private void AppViewModelOnPropertyChangedMethod()
         {
             if (appViewModel.Apps != null)
             {
@@ -100,45 +87,11 @@ namespace try_to_make_app
                 Chart.SliceLabels = labelsCirculeDiogram;
                 Chart.ShowLabels = true;
                 Chart.SliceFont.Size = 10;
-                
-                CirculeDioagram.Render();
+
                 CirculeDioagram.Refresh();
                 
             }
         }
 
-        private void AppsOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                if (appViewModel.Apps != null)
-                {
-                    List<double> CirculeDay = new List<double>();
-                    List<string> CirculeLabels = new List<string>();
-                    WrapPanel.Children.Clear();
-                    foreach (var app in appViewModel.Apps)
-                    {
-                        Button button = new Button();
-                        button.Content = app.Name;
-                        Thickness thickness = new Thickness(5);
-                        button.Margin = thickness;
-                        WrapPanel.Children.Add(button);
-                        CirculeDay.Add(app.WorkTimeToDay);
-                        CirculeLabels.Add(app.Name);
-                    }
-
-                    double[] valuesCirculeDiogram =CirculeDay.ToArray();
-                    string[] labelsCirculeDiogram = CirculeLabels.ToArray();
-                    PiePlot Chart  = CirculeDioagram.Plot.AddPie(valuesCirculeDiogram);
-                    Chart.SliceLabels = labelsCirculeDiogram;
-                    Chart.ShowLabels = true;
-                    Chart.SliceFont.Size = 13;
-                
-                    CirculeDioagram.Render();
-                    CirculeDioagram.Refresh();
-                
-                }
-            }
-        }
     }
 }
