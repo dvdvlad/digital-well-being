@@ -11,7 +11,7 @@ public class Database
     {
         get
         {
-            return AppViewModels;
+            return _appViewModels;
 
         }
         set
@@ -47,4 +47,5 @@ public class Database
 
         return MethodWorkTime;
     }
+    
 }

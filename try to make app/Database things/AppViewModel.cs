@@ -35,7 +35,7 @@ public class  AppViewModel
             OnPropertyChanged("SelectedApp");
         }
     }
-    public void UpdateList()
+    public  void UpdateList()
     {
         AppModel temp;
         int HowMannyAdd = 0;
@@ -92,7 +92,7 @@ public class  AppViewModel
         List<AppModel> Apps = new List<AppModel>();
 
         List<string> SystemProcess = new List<string>()
-            { "TextInputHost", "ApplicationFrameHost", "SystemSettings", "Taskmgr", "NVIDIA Share","WindowsTerminal" };
+            { "TextInputHost", "ApplicationFrameHost", "SystemSettings", "Taskmgr", "NVIDIA Share","WindowsTerminal","try to make app" };
         Process[] processes = Process.GetProcesses();
         foreach (var pr in processes)
         {

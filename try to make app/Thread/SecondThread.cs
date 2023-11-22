@@ -21,7 +21,6 @@ public class SecondThread
         while (true)
         {
             Dispatcher.CurrentDispatcher.Invoke(() => { _window.appViewModel.UpdateList(); });
-            Dispatcher.CurrentDispatcher.Invoke(() => { Save.SaveDatabase(_window.appViewModel); });
             System.Threading.Thread.Sleep(10000);
         }
         

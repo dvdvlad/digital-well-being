@@ -36,7 +36,7 @@ namespace try_to_make_app
         private static string path = $"{Environment.CurrentDirectory}\\AppDatabase.json";
         Save save = new Save();
         public AppViewModel appViewModel = new AppViewModel();
-        
+        public Database Database = Save.LoadDatabase();
         public MainWindow()
         {   
             InitializeComponent();
@@ -44,7 +44,8 @@ namespace try_to_make_app
             {
                 DataContext = appViewModel;
             }
-            appViewModel.Apps = Save.LoadDatabase();
+            
+            appViewModel.Apps = Database.AppViewModels.LastOrDefault().Apps;
             appViewModel.PropertyChanged += AppViewModelOnPropertyChanged;
             
             double[] valuesDiograma =  { 13,12,21,11,4,2,7};
@@ -56,8 +57,9 @@ namespace try_to_make_app
             System.Threading.Thread SecondThread = new System.Threading.Thread(secondThread.Main) { IsBackground = true };
             SecondThread.Start();
             
-        }
 
+        }
+        
         private void AppViewModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() => { AppViewModelOnPropertyChangedMethod(); });
@@ -87,11 +89,16 @@ namespace try_to_make_app
                 Chart.SliceLabels = labelsCirculeDiogram;
                 Chart.ShowLabels = true;
                 Chart.SliceFont.Size = 10;
-
+                    CirculeDioagram.Configuration.Pan = false;
                 CirculeDioagram.Refresh();
                 
             }
         }
 
+
+        private void MainWindow_OnClosed(object? sender, EventArgs e)
+        {
+            Save.SaveDatabase(Database);
+        }
     }
 }

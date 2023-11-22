@@ -15,37 +15,28 @@ namespace try_to_make_app.Database_things;
 public  class  Save
 {
     private static  string PATH =  $"{Environment.CurrentDirectory}\\AppDatabase.json";
-    public static  void SaveDatabase(AppViewModel appViewModel)
+    public static  void SaveDatabase(Database database)
     {
-        if (appViewModel.Apps != null)
+        if (database != null)
         {
             using (StreamWriter sw = File.CreateText(PATH))
             {
-                string forsave = JsonConvert.SerializeObject(appViewModel.Apps);
+                string forsave = JsonConvert.SerializeObject(database);
                 sw.Write(forsave);
             }
         }
         else
         {
-            appViewModel.Apps = null;
+            database = new Database();
             using (StreamWriter sw = File.CreateText(PATH))
             {
-                string forsave = JsonConvert.SerializeObject(appViewModel.Apps);
+                string forsave = JsonConvert.SerializeObject(database);
                 sw.Write(forsave);
             }
         }
-        
-        
-        
-        using (StreamWriter sw = File.CreateText(PATH))
-        {
-            string forsave = JsonConvert.SerializeObject(appViewModel.Apps);
-            sw.Write(forsave);
-        }
-
     }
 
-     public static ObservableCollection<AppModel> LoadDatabase()
+     public static Database LoadDatabase()
     {
         bool fileexist = File.Exists(PATH);
         if (fileexist)
@@ -53,14 +44,26 @@ public  class  Save
             using (var reader = File.OpenText(PATH))
             {
                 string filetxt = reader.ReadToEnd();
-                return JsonConvert.DeserializeObject<ObservableCollection<AppModel>>(filetxt);
-
+                Database database =  JsonConvert.DeserializeObject<Database>(filetxt);
+                if (database == null)
+                {
+                    Database IfNUlLdatabase = new Database();
+                    AppViewModel appViewModel = new AppViewModel();
+                    appViewModel.UpdateList();
+                    IfNUlLdatabase.AppViewModels.Add(appViewModel);
+                    return IfNUlLdatabase;
+                }
+                else
+                {
+                    return database;
+                }
             }
         }
         else
         {
             File.CreateText(PATH).Dispose();
-            return null;
+            Database database = new Database();
+            return database;
         }
     }
 }
