@@ -20,7 +20,7 @@ public class SecondThread
     {
         while (true)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() => { _window.appViewModel.UpdateList(); });
+            Dispatcher.CurrentDispatcher.Invoke(() => { _window.DayViewModel.UpdateList(); });
             System.Threading.Thread.Sleep(10000);
         }
         

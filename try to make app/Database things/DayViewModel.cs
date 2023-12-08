@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace try_to_make_app.Database_things;
 
-public class  AppViewModel
+public class  DayViewModel
 {
     private AppModel selectapps;
     private Save _save = new Save();

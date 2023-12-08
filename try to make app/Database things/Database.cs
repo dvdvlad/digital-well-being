@@ -5,9 +5,9 @@ namespace try_to_make_app.Database_things;
 
 public class Database
 {
-    private List<AppViewModel> _appViewModels = new List<AppViewModel>();
+    private List<DayViewModel> _appViewModels = new List<DayViewModel>();
 
-    public List<AppViewModel> AppViewModels
+    public List<DayViewModel> AppViewModels
     {
         get
         {

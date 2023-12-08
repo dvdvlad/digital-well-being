@@ -48,9 +48,9 @@ public  class  Save
                 if (database == null)
                 {
                     Database IfNUlLdatabase = new Database();
-                    AppViewModel appViewModel = new AppViewModel();
-                    appViewModel.UpdateList();
-                    IfNUlLdatabase.AppViewModels.Add(appViewModel);
+                    DayViewModel dayViewModel = new DayViewModel();
+                    dayViewModel.UpdateList();
+                    IfNUlLdatabase.AppViewModels.Add(dayViewModel);
                     return IfNUlLdatabase;
                 }
                 else

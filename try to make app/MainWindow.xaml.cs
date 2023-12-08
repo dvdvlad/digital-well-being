@@ -35,18 +35,18 @@ namespace try_to_make_app
         object locker  = new ();
         private static string path = $"{Environment.CurrentDirectory}\\AppDatabase.json";
         Save save = new Save();
-        public AppViewModel appViewModel = new AppViewModel();
+        public DayViewModel DayViewModel = new DayViewModel();
         public Database Database = Save.LoadDatabase();
         public MainWindow()
         {   
             InitializeComponent();
             lock (locker)
             {
-                DataContext = appViewModel;
+                DataContext = DayViewModel;
             }
             
-            appViewModel.Apps = Database.AppViewModels.LastOrDefault().Apps;
-            appViewModel.PropertyChanged += AppViewModelOnPropertyChanged;
+            DayViewModel.Apps = Database.AppViewModels.LastOrDefault().Apps;
+            DayViewModel.PropertyChanged += DayViewModelOnPropertyChanged;
             
             double[] valuesDiograma =  { 13,12,21,11,4,2,7};
             double[] Day_of_The_Week = { 1, 2,3,4,5,6,7};
@@ -60,19 +60,19 @@ namespace try_to_make_app
 
         }
         
-        private void AppViewModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void DayViewModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             this.Dispatcher.Invoke(() => { AppViewModelOnPropertyChangedMethod(); });
         }
 
         private void AppViewModelOnPropertyChangedMethod()
         {
-            if (appViewModel.Apps != null)
+            if (DayViewModel.Apps != null)
             {
                 List<double> CirculeDay = new List<double>();
                 List<string> CirculeLabels = new List<string>();
                 WrapPanel.Children.Clear();
-                foreach (var app in appViewModel.Apps)
+                foreach (var app in DayViewModel.Apps)
                 {
                     Button button = new Button();
                     button.Content = app.Name;
