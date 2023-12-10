@@ -27,26 +27,29 @@ using Color = System.Drawing.Color;
 
 namespace try_to_make_app
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         object locker  = new ();
         private static string path = $"{Environment.CurrentDirectory}\\AppDatabase.json";
         Save save = new Save();
         public DayViewModel DayViewModel = new DayViewModel();
-        public Database Database = Save.LoadDatabase();
+        public Database database = Save.LoadDatabase();
         public MainWindow()
-        {   
+        {
+            if (database.AppViewModels != null)
+            {
+                
+            }
+            
             InitializeComponent();
+            
+            DayViewModel.Apps = database.AppViewModels.LastOrDefault().Apps;
+            DayViewModel.PropertyChanged += DayViewModelOnPropertyChanged;
+            
             lock (locker)
             {
                 DataContext = DayViewModel;
             }
-            
-            DayViewModel.Apps = Database.AppViewModels.LastOrDefault().Apps;
-            DayViewModel.PropertyChanged += DayViewModelOnPropertyChanged;
             
             double[] valuesDiograma =  { 13,12,21,11,4,2,7};
             double[] Day_of_The_Week = { 1, 2,3,4,5,6,7};
@@ -86,10 +89,10 @@ namespace try_to_make_app
                 double[] valuesCirculeDiogram =CirculeDay.ToArray();
                 string[] labelsCirculeDiogram = CirculeLabels.ToArray();
                 PiePlot Chart  = CirculeDioagram.Plot.AddPie(valuesCirculeDiogram);
-                Chart.SliceLabels = labelsCirculeDiogram;
                 Chart.ShowLabels = true;
+                Chart.SliceLabels = labelsCirculeDiogram;
                 Chart.SliceFont.Size = 10;
-                    CirculeDioagram.Configuration.Pan = false;
+                CirculeDioagram.Configuration.Pan = false;
                 CirculeDioagram.Refresh();
                 
             }
@@ -98,7 +101,7 @@ namespace try_to_make_app
 
         private void MainWindow_OnClosed(object? sender, EventArgs e)
         {
-            Save.SaveDatabase(Database);
+            Save.SaveDatabase(database);
         }
     }
 }

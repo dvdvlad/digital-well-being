@@ -39,7 +39,7 @@ public class  DayViewModel
     {
         AppModel temp;
         int HowMannyAdd = 0;
-        List <AppModel> appList = WorkGetApps();
+        ObservableCollection<AppModel> appList = WorkGetApps();
         AppModel[] appArray = appList.ToArray();
         double OtherTodayWorkTime = 0;
         AppModel OtherApps = new AppModel(name: "OherApp", OtherTodayWorkTime);
@@ -87,10 +87,9 @@ public class  DayViewModel
 
         Apps = new ObservableCollection<AppModel>(appArray.ToList());
     }
-    private List<AppModel> WorkGetApps()
+    private ObservableCollection<AppModel> WorkGetApps()
     {
-        List<AppModel> Apps = new List<AppModel>();
-
+        
         List<string> SystemProcess = new List<string>()
             { "TextInputHost", "ApplicationFrameHost", "SystemSettings", "Taskmgr", "NVIDIA Share","WindowsTerminal","try to make app" };
         Process[] processes = Process.GetProcesses();
@@ -103,9 +102,17 @@ public class  DayViewModel
                 foreach (var SyPr in SystemProcess)
                 {
 
-                    if (pr.ProcessName != SyPr)
+                    if (pr.ProcessName != SyPr )
                     {
-                        StateOfCheck = true;
+                        foreach (var app in Apps)
+                        {
+                            if (app.Name == pr.ProcessName)
+                            {
+                                StateOfCheck = false;
+                                break;
+                            }
+                            StateOfCheck = true;
+                        }
                     }
                     else
                     {
@@ -113,6 +120,7 @@ public class  DayViewModel
                         break;
                     }
                 }
+                
 
                 if (StateOfCheck)
                 {
@@ -122,6 +130,7 @@ public class  DayViewModel
                 }
             }
         }
+
         return Apps;
     }
     
