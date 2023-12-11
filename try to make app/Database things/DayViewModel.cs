@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace try_to_make_app.Database_things;
 
@@ -37,55 +38,57 @@ public class  DayViewModel
     }
     public  void UpdateList()
     {
-        AppModel temp;
-        int HowMannyAdd = 0;
-        ObservableCollection<AppModel> appList = WorkGetApps();
-        AppModel[] appArray = appList.ToArray();
-        double OtherTodayWorkTime = 0;
-        AppModel OtherApps = new AppModel(name: "OherApp", OtherTodayWorkTime);
-        
-        for (int i = 0; i < appArray.Length; i++)
+        AppModel OtherApp = new AppModel("Другие Приложения", 0);
+        List<AppModel> AllWorkAppNow = WorkGetApps().ToList();
+        foreach (var WorkingApp in AllWorkAppNow)
         {
-            for (int j = 0;j < appArray.Length; j++)
+            foreach (var AppsInDatabase  in this.Apps)
             {
-                if (appArray[i].WorkTimeToDay > appArray[j].WorkTimeToDay)
+                if (WorkingApp.Name == AppsInDatabase.Name)
                 {
-                    temp = appArray[i];
-                    appArray[i] = appArray[j];
-                    appArray[j] = temp;
+                    this.Apps.Add(WorkingApp);
+                    break;
+                }   
+            }
+        }
+
+        bool StateOfCheck = true;
+        double AllAppsWorkTIme = 0;
+        foreach (var app in this.Apps)
+        {
+            AllAppsWorkTIme += app.WorkTimeToDay;
+        }
+
+        AppModel temp;
+        AppModel[] apps = this.Apps.ToArray();
+        for (int i = 0; i < apps.Length - 1; i++)
+        {
+            for (int j = i + 1; j < apps.Length; j++)
+            {
+                if (apps[i].WorkTimeToDay > apps[j].WorkTimeToDay)
+                {
+                    temp = apps[i];
+                    apps[i] = apps[j];
+                    apps[j] = temp;
                 }
             }
         }
-        try
-        {
-            appArray[5] = OtherApps;
-        }
-        catch (Exception e)
-        {
-            
-        }
-        int count = appArray.Length;
-        for (int i = 6; i < count; i++)
-        {
-            try
-            {
-                OtherApps.WorkTimeToDay = OtherApps.WorkTimeToDay + appArray[i].WorkTimeToDay;
-            }
-            catch (Exception e)
-            {
-                List<AppModel> Catchlist = appArray.ToList();
-                int lastindex = appArray.Length - 1;
-                Catchlist.Remove(appArray[lastindex]);
-                appArray = Catchlist.ToArray();
-                break;
-            }
-            List<AppModel> list = appArray.ToList();
-            list.Remove(appArray[i]);
-            appArray = list.ToArray();
 
+        this.Apps = new ObservableCollectionListSource<AppModel>(apps.ToList());
+        ObservableCollection<AppModel> appstemp = new ObservableCollection<AppModel>(this.Apps);
+        foreach (var app in this.Apps)
+        {
+            if (app.WorkTimeToDay / AllAppsWorkTIme < 5.00)
+            {
+                OtherApp.WorkTimeToDay += app.WorkTimeToDay;
+                appstemp[this.Apps.IndexOf(app)] = OtherApp;
+            }
         }
 
-        Apps = new ObservableCollection<AppModel>(appArray.ToList());
+        this.Apps = appstemp;
+
+
+
     }
     private ObservableCollection<AppModel> WorkGetApps()
     {
@@ -104,14 +107,21 @@ public class  DayViewModel
 
                     if (pr.ProcessName != SyPr )
                     {
-                        foreach (var app in Apps)
+                        if (this.Apps != null)
                         {
-                            if (app.Name == pr.ProcessName)
+                            foreach (var app in Apps)
                             {
-                                StateOfCheck = false;
-                                break;
+                                if (app.Name == pr.ProcessName)
+                                {
+                                    StateOfCheck = false;
+                                    break;
+                                }
+                                StateOfCheck = true;
                             }
-                            StateOfCheck = true;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                     else
