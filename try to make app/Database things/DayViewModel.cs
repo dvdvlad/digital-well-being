@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -36,63 +37,68 @@ public class  DayViewModel
             OnPropertyChanged("SelectedApp");
         }
     }
-    public  void UpdateList()
+
+    public DayViewModel()
     {
-        AppModel OtherApp = new AppModel("Другие Приложения", 0);
-        List<AppModel> AllWorkAppNow = WorkGetApps().ToList();
-        foreach (var WorkingApp in AllWorkAppNow)
-        {
-            foreach (var AppsInDatabase  in this.Apps)
-            {
-                if (WorkingApp.Name == AppsInDatabase.Name)
-                {
-                    this.Apps.Add(WorkingApp);
-                    break;
-                }   
-            }
-        }
-
-        bool StateOfCheck = true;
-        double AllAppsWorkTIme = 0;
-        foreach (var app in this.Apps)
-        {
-            AllAppsWorkTIme += app.WorkTimeToDay;
-        }
-
+        this.Apps = new ObservableCollection<AppModel>();
+    }
+    
+public  void UpdateList()
+    {
         AppModel temp;
-        AppModel[] apps = this.Apps.ToArray();
-        for (int i = 0; i < apps.Length - 1; i++)
+        int HowMannyAdd = 0;
+        List <AppModel> appList = WorkGetApps();
+        AppModel[] appArray = appList.ToArray();
+        double OtherTodayWorkTime = 0;
+        AppModel OtherApps = new AppModel(name: "OherApp", OtherTodayWorkTime);
+        
+        for (int i = 0; i < appArray.Length; i++)
         {
-            for (int j = i + 1; j < apps.Length; j++)
+            for (int j = 0;j < appArray.Length; j++)
             {
-                if (apps[i].WorkTimeToDay > apps[j].WorkTimeToDay)
+                if (appArray[i].WorkTimeToDay > appArray[j].WorkTimeToDay)
                 {
-                    temp = apps[i];
-                    apps[i] = apps[j];
-                    apps[j] = temp;
+                    temp = appArray[i];
+                    appArray[i] = appArray[j];
+                    appArray[j] = temp;
                 }
             }
         }
-
-        this.Apps = new ObservableCollectionListSource<AppModel>(apps.ToList());
-        ObservableCollection<AppModel> appstemp = new ObservableCollection<AppModel>(this.Apps);
-        foreach (var app in this.Apps)
+        try
         {
-            if (app.WorkTimeToDay / AllAppsWorkTIme < 5.00)
+            appArray[5] = OtherApps;
+        }
+        catch (Exception e)
+        {
+            
+        }
+        int count = appArray.Length;
+        for (int i = 6; i <= count; i++)
+        {
+            try
             {
-                OtherApp.WorkTimeToDay += app.WorkTimeToDay;
-                appstemp[this.Apps.IndexOf(app)] = OtherApp;
+                OtherApps.WorkTimeToDay = OtherApps.WorkTimeToDay + appArray[i].WorkTimeToDay;
             }
+            catch (Exception e)
+            {
+                List<AppModel> Catchlist = appArray.ToList();
+                int lastindex = appArray.Length - 1;
+                Catchlist.Remove(appArray[lastindex]);
+                appArray = Catchlist.ToArray();
+                break;
+            }
+            List<AppModel> list = appArray.ToList();
+            list.Remove(appArray[i]);
+            appArray = list.ToArray();
+
         }
 
-        this.Apps = appstemp;
-
-
-
+        Apps = new ObservableCollection<AppModel>(appArray.ToList());
     }
-    private ObservableCollection<AppModel> WorkGetApps()
+    private List<AppModel> WorkGetApps()
     {
-        
+        List<AppModel> Apps = new List<AppModel>();
+
         List<string> SystemProcess = new List<string>()
             { "TextInputHost", "ApplicationFrameHost", "SystemSettings", "Taskmgr", "NVIDIA Share","WindowsTerminal","try to make app" };
         Process[] processes = Process.GetProcesses();
@@ -105,24 +111,9 @@ public class  DayViewModel
                 foreach (var SyPr in SystemProcess)
                 {
 
-                    if (pr.ProcessName != SyPr )
+                    if (pr.ProcessName != SyPr)
                     {
-                        if (this.Apps != null)
-                        {
-                            foreach (var app in Apps)
-                            {
-                                if (app.Name == pr.ProcessName)
-                                {
-                                    StateOfCheck = false;
-                                    break;
-                                }
-                                StateOfCheck = true;
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        StateOfCheck = true;
                     }
                     else
                     {
@@ -130,7 +121,6 @@ public class  DayViewModel
                         break;
                     }
                 }
-                
 
                 if (StateOfCheck)
                 {
@@ -140,10 +130,8 @@ public class  DayViewModel
                 }
             }
         }
-
         return Apps;
-    }
-    
+    }    
     public event PropertyChangedEventHandler PropertyChanged;
     public void OnPropertyChanged([CallerMemberName]string prop = "")
     {

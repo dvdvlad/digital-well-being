@@ -50,7 +50,7 @@ public  class  Save
                     Database IfNUlLdatabase = new Database();
                     DayViewModel dayViewModel = new DayViewModel();
                     dayViewModel.UpdateList();
-                    IfNUlLdatabase.AppViewModels.Add(dayViewModel);
+                    IfNUlLdatabase.DayViewModels.Add(dayViewModel);
                     return IfNUlLdatabase;
                 }
                 else

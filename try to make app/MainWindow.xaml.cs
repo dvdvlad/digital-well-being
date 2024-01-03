@@ -36,14 +36,15 @@ namespace try_to_make_app
         public Database database = Save.LoadDatabase();
         public MainWindow()
         {
-            if (database.AppViewModels != null)
+            if (database.DayViewModels == null)
             {
-                
+                DayViewModel.UpdateList();
+                database.DayViewModels.Add(DayViewModel);
             }
             
             InitializeComponent();
             
-            DayViewModel.Apps = database.AppViewModels.LastOrDefault().Apps;
+            DayViewModel.Apps = database.DayViewModels.LastOrDefault().Apps;
             DayViewModel.PropertyChanged += DayViewModelOnPropertyChanged;
             
             lock (locker)
