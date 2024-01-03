@@ -18,6 +18,8 @@ public class SecondThread
     
     public void Main()
     {
+        
+        
         while (true)
         {
             Dispatcher.CurrentDispatcher.Invoke(() => { _window.DayViewModel.UpdateList(); });

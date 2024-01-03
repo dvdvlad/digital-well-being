@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace try_to_make_app.Database_things;
 
@@ -35,7 +37,13 @@ public class  DayViewModel
             OnPropertyChanged("SelectedApp");
         }
     }
-    public  void UpdateList()
+
+    public DayViewModel()
+    {
+        this.Apps = new ObservableCollection<AppModel>();
+    }
+    
+public  void UpdateList()
     {
         AppModel temp;
         int HowMannyAdd = 0;
@@ -65,7 +73,7 @@ public class  DayViewModel
             
         }
         int count = appArray.Length;
-        for (int i = 6; i < count; i++)
+        for (int i = 6; i <= count; i++)
         {
             try
             {
@@ -123,8 +131,7 @@ public class  DayViewModel
             }
         }
         return Apps;
-    }
-    
+    }    
     public event PropertyChangedEventHandler PropertyChanged;
     public void OnPropertyChanged([CallerMemberName]string prop = "")
     {

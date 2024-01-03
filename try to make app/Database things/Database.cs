@@ -7,7 +7,7 @@ public class Database
 {
     private List<DayViewModel> _appViewModels = new List<DayViewModel>();
 
-    public List<DayViewModel> AppViewModels
+    public List<DayViewModel> DayViewModels
     {
         get
         {
@@ -37,7 +37,7 @@ public class Database
     private double CountWeekWorkTime()
     {
         double MethodWorkTime = 0;
-        foreach (var day in AppViewModels)
+        foreach (var day in DayViewModels)
         {
             foreach (var app in day.Apps)
             {
