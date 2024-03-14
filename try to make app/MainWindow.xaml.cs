@@ -21,6 +21,7 @@ using System.Windows.Threading;
 using ScottPlot;
 using ScottPlot.Plottable;
 using ScottPlot.Renderable;
+using try_to_make_app.CustomChart;
 using try_to_make_app.Database_things;
 using try_to_make_app.Thread;
 using Color = System.Drawing.Color;
@@ -89,13 +90,15 @@ namespace try_to_make_app
 
                 double[] valuesCirculeDiogram =CirculeDay.ToArray();
                 string[] labelsCirculeDiogram = CirculeLabels.ToArray();
-                PiePlot Chart  = CirculeDioagram.Plot.AddPie(valuesCirculeDiogram);
-                Chart.ShowLabels = true;
-                Chart.SliceLabels = labelsCirculeDiogram;
-                Chart.SliceFont.Size = 10;
-                CirculeDioagram.Configuration.Pan = false;
-                CirculeDioagram.Refresh();
-                
+
+                /*                PiePlot Chart  = CirculeDioagram.Plot.AddPie(valuesCirculeDiogram);*/
+                /*                Chart.ShowLabels = true;
+                                Chart.SliceLabels = labelsCirculeDiogram;
+                                Chart.SliceFont.Size = 10;*/
+                /*                CirculeDioagram.Configuration.Pan = false;
+                                CirculeDioagram.Refresh();*/
+                UserControl1 userControl1 = new UserControl1();
+                Chartest.Children.Add(userControl1);
             }
         }
 

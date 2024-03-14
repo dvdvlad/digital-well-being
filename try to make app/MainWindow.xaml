@@ -6,19 +6,24 @@
         xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
         xmlns:databaseThings="clr-namespace:try_to_make_app.Database_things"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000">
+        Title="MainWindow" Height="400" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ScottPlot:WpfPlot Grid.Column="0"   x:Name="CirculeDioagram"  Height="300" Width="300" HorizontalAlignment="Left"   />
-        <ScottPlot:WpfPlot Grid.Column="1"  x:Name="Dioagram"/>
-        <WrapPanel Grid.Row="1"  Name="WrapPanel" >
-        </WrapPanel>
+        <ScottPlot:WpfPlot Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2"  x:Name="Dioagram" Margin="10 10 10 10"/>
+        <WrapPanel Grid.Row="2" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4"  Name="WrapPanel" Margin="10 10 10 10"/>
+        <Canvas Name="Chartest" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="10 10 10 10">
+
+        </Canvas>
     </Grid>
 </Window>
