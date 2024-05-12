@@ -5,18 +5,18 @@ namespace try_to_make_app.Database_things;
 
 public class Database
 {
-    private List<DayViewModel> _appViewModels = new List<DayViewModel>();
+    private List<DayViewModel> _dayViewModels = new List<DayViewModel>();
 
     public List<DayViewModel> DayViewModels
     {
         get
         {
-            return _appViewModels;
+            return _dayViewModels;
 
         }
         set
         {
-            _appViewModels = value;
+            _dayViewModels = value;
         }
     }
 
@@ -47,5 +47,11 @@ public class Database
 
         return MethodWorkTime;
     }
-    
+
+    public void NewDay()
+    {
+        DayViewModel dayViewModel = new DayViewModel();
+        dayViewModel.UpdateList(1);
+        this.DayViewModels.Add(dayViewModel);
+    }
 }

@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Windows.Threading;
 using Newtonsoft.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace try_to_make_app.Database_things;
 
@@ -36,7 +28,7 @@ public  class  Save
         }
     }
 
-     public static Database LoadDatabase()
+     public static Database LoadDatabase()  
     {
         bool fileexist = File.Exists(PATH);
         if (fileexist)
@@ -49,7 +41,7 @@ public  class  Save
                 {
                     Database IfNUlLdatabase = new Database();
                     DayViewModel dayViewModel = new DayViewModel();
-                    dayViewModel.UpdateList();
+                    dayViewModel.UpdateList(0);
                     IfNUlLdatabase.DayViewModels.Add(dayViewModel);
                     return IfNUlLdatabase;
                 }

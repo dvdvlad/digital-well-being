@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Dynamic;
-using System.Windows;
-using System.Windows.Controls.Primitives;
+using System.Linq;
 using System.Windows.Threading;
-using try_to_make_app.Database_things;
-using try_to_make_app;
+
 namespace try_to_make_app.Thread;
 
 public class SecondThread
@@ -15,16 +12,19 @@ public class SecondThread
     {
         _window = window;
     }
-    
+
     public void Main()
     {
-        
-        
         while (true)
         {
-            Dispatcher.CurrentDispatcher.Invoke(() => { _window.DayViewModel.UpdateList(); });
-            System.Threading.Thread.Sleep(10000);
+            DateTime dateTime = _window.DayViewModel.today;
+            Dispatcher.CurrentDispatcher.Invoke(() => { _window.DayViewModel.UpdateList(1); });
+            if ( dateTime != DateTime.Today)
+            {
+                Dispatcher.CurrentDispatcher.Invoke(() => { _window.database.NewDay(); });
+            }
+            System.Threading.Thread.Sleep(1000);
         }
-        
     }
+    
 }

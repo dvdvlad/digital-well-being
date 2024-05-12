@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace try_to_make_app.Database_things;
+
 [Serializable]
-public class AppModel: INotifyPropertyChanged
+public class AppModel : INotifyPropertyChanged, IComparable
 {
     private string name;
     private double worktimetoday;
@@ -13,10 +14,7 @@ public class AppModel: INotifyPropertyChanged
 
     public string Name
     {
-        get
-        {
-            return name;
-        }
+        get { return name; }
         set
         {
             name = value;
@@ -24,12 +22,9 @@ public class AppModel: INotifyPropertyChanged
         }
     }
 
-    public double  WorkTimeToDay
+    public double WorkTimeToDay
     {
-        get
-        {
-            return worktimetoday;
-        }
+        get { return worktimetoday; }
         set
         {
             worktimetoday = value;
@@ -39,10 +34,7 @@ public class AppModel: INotifyPropertyChanged
 
     public DateTime WorkTimeOnWeek
     {
-        get
-        {
-            return worktimeonweek;
-        }
+        get { return worktimeonweek; }
         set
         {
             worktimeonweek = value;
@@ -50,15 +42,29 @@ public class AppModel: INotifyPropertyChanged
         }
     }
 
-    public AppModel(string name,double worktimetoday)
+    public AppModel(string name, double worktimetoday)
     {
         this.name = name;
         this.worktimetoday = worktimetoday;
     }
+
     public event PropertyChangedEventHandler PropertyChanged;
-    public void OnPropertyChanged([CallerMemberName]string prop = "")
+
+    public void OnPropertyChanged([CallerMemberName] string prop = "")
     {
         if (PropertyChanged != null)
             PropertyChanged(this, new PropertyChangedEventArgs(prop));
+    }
+
+    public int CompareTo(object? o)
+    {
+        if (o is AppModel appModel)
+        {
+            return worktimetoday.CompareTo(appModel.worktimetoday);
+        }
+        else
+        {
+            throw new ArgumentException("while sorting get non AppModel object");
+        }
     }
 }
