@@ -57,7 +57,6 @@ namespace try_to_make_app
 
         private void AppViewModelOnPropertyChangedMethod()
         {
-            // this.DayViewModel = database.DayViewModels.Last();
             if (DayViewModel.Apps != null)
             {
                 List<double> CirculeDay = new List<double>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace try_to_make_app.Thread;
@@ -19,9 +20,10 @@ public class SecondThread
         {
             DateTime dateTime = _window.DayViewModel.today;
             Dispatcher.CurrentDispatcher.Invoke(() => { _window.DayViewModel.UpdateList(1); });
-            if ( dateTime != DateTime.Today)
+            if (_window.DayViewModel.today == dateTime)
             {
                 Dispatcher.CurrentDispatcher.Invoke(() => { _window.database.NewDay(); });
+                Dispatcher.CurrentDispatcher.Invoke(() => _window.DayViewModel = _window.database.DayViewModels.Last() );
             }
             System.Threading.Thread.Sleep(1000);
         }
