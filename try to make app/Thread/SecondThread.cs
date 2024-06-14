@@ -23,7 +23,7 @@ public class SecondThread
             if (_window.DayViewModel.today == dateTime)
             {
                 Dispatcher.CurrentDispatcher.Invoke(() => { _window.database.NewDay(); });
-                Dispatcher.CurrentDispatcher.Invoke(() => _window.DayViewModel = _window.database.DayViewModels.Last() );
+                // Dispatcher.CurrentDispatcher.Invoke(() => _window.DayViewModel = _window.database.DayViewModels.Last() );
             }
             System.Threading.Thread.Sleep(1000);
         }

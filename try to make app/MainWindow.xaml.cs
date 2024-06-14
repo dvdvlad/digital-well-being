@@ -57,12 +57,12 @@ namespace try_to_make_app
 
         private void AppViewModelOnPropertyChangedMethod()
         {
-            if (DayViewModel.Apps != null)
+            if (this.database.DayViewModels.Last() != null)
             {
                 List<double> CirculeDay = new List<double>();
                 List<string> CirculeLabels = new List<string>();
                 WrapPanel.Children.Clear();
-                foreach (var app in DayViewModel.Apps)
+                foreach (var app in this.database.DayViewModels.Last().Apps)
                 {
                     Button button = new Button();
                     button.Content = app.Name;
