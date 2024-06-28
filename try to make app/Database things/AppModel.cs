@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -6,11 +7,13 @@ using System.Runtime.CompilerServices;
 namespace try_to_make_app.Database_things;
 
 [Serializable]
-public class AppModel : INotifyPropertyChanged, IComparable
+public class AppModel : INotifyPropertyChanged 
 {
-    private string name;
-    private double worktimetoday;
-    private DateTime worktimeonweek;
+    public int ID { get; set; }
+    public List<AppDay> AppDays { get; set; }
+    public List<DayModel> Days { get; set; } = new ();
+    private string name = "нет имени";
+    private DateTime worktimeonweek = DateTime.MinValue;
 
     public string Name
     {
@@ -21,17 +24,6 @@ public class AppModel : INotifyPropertyChanged, IComparable
             OnPropertyChanged("Name");
         }
     }
-
-    public double WorkTimeToDay
-    {
-        get { return worktimetoday; }
-        set
-        {
-            worktimetoday = value;
-            OnPropertyChanged("DatatimeToDay");
-        }
-    }
-
     public DateTime WorkTimeOnWeek
     {
         get { return worktimeonweek; }
@@ -42,13 +34,16 @@ public class AppModel : INotifyPropertyChanged, IComparable
         }
     }
 
-    public AppModel(string name, double worktimetoday)
+    public AppModel(string name)
     {
         this.name = name;
-        this.worktimetoday = worktimetoday;
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public AppModel()
+    {
+        
+    }
+public event PropertyChangedEventHandler PropertyChanged;
 
     public void OnPropertyChanged([CallerMemberName] string prop = "")
     {
@@ -56,15 +51,4 @@ public class AppModel : INotifyPropertyChanged, IComparable
             PropertyChanged(this, new PropertyChangedEventArgs(prop));
     }
 
-    public int CompareTo(object? o)
-    {
-        if (o is AppModel appModel)
-        {
-            return worktimetoday.CompareTo(appModel.worktimetoday);
-        }
-        else
-        {
-            throw new ArgumentException("while sorting get non AppModel object");
-        }
-    }
 }
