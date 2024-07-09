@@ -90,7 +90,7 @@ public class SecondThread
     {
         using (ApplicationContext db = new ApplicationContext())
         {
-            if (dayModel.AppModels != null)
+            if (dayModel.AppModels != null && dayModel.AppModels.Count > 0)
             {
                 foreach (var runpr in runproocess)
                 {
@@ -98,12 +98,17 @@ public class SecondThread
                     {
                         AppModel appModel = db.Apps.Where(ap => ap.Name == runpr.ProcessName).FirstOrDefault();
                         dayModel.AppDays.Add(new AppDay(){AppM = appModel, AppId = appModel.ID, Day = dayModel, DayId = dayModel.ID});
-                        db.Days.Update(dayModel);
-                        db.SaveChanges();
+                       db.Days.Update(dayModel);
+                       try
+                       {
+                           db.SaveChanges();
+                       }
+                       catch
+                       {
+                           
+                       }
                     }
                 }
-
-                db.SaveChanges();
             }
             else
             {
@@ -111,7 +116,8 @@ public class SecondThread
                 {
                     AppModel appModel = new AppModel(runpr.ProcessName);
                     appModel.Days.Add(dayModel);
-                    db.Apps.Add(appModel);
+                    db.Apps.Update(appModel);
+                    db.SaveChanges();
                 }
             }
         }
