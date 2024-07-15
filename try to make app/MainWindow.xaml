@@ -5,20 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
         xmlns:databaseThings="clr-namespace:try_to_make_app.Database_things"
+        xmlns:View="clr-namespace:try_to_make_app.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="1000">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition ></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <ScottPlot:WpfPlot Grid.Column="0"   x:Name="CirculeDioagram"  Height="300" Width="300" HorizontalAlignment="Left"   />
-        <ScottPlot:WpfPlot Grid.Column="1"  x:Name="Dioagram"/>
-        <WrapPanel Grid.Row="1"  Name="WrapPanel" >
-        </WrapPanel>
+        <View:CirculeChart Values="{Binding PieValues }" Labels="{Binding PieLabels }"/>
     </Grid>
 </Window>
