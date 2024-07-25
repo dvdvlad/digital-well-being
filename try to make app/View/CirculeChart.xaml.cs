@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -72,7 +73,7 @@ public partial class CirculeChart : UserControl
         double angle = 0;
         double centerX = PieCanvas.ActualWidth / 2;
         double centerY = PieCanvas.ActualHeight / 2;
-        double radius = Math.Min(centerX, centerY);
+        double radius = Math.Min(centerX, centerY) - 40;
         PieCanvas.Children.Clear();
         for (int i = 0; i < Values.Count; i++)
         {
@@ -106,32 +107,50 @@ public partial class CirculeChart : UserControl
 
             PieCanvas.Children.Add(path);
             // Добавление меток
-            double labelAngle = angle - sliceAngle / 2;
-            double labelradius = radius + 20;
-            double labelX = centerX + labelradius * Math.Cos(labelAngle * Math.PI / 180);
-            double labelY = centerY + labelradius * Math.Sin(labelAngle * Math.PI / 180);
+            double labelOffset = radius * 0.15;
             double ActualFontSize = 10;
+            double labelAngle = angle - sliceAngle / 2;
+            double labelRadius = radius + labelOffset; // Учитываем отступ как процент от радиуса
+            double labelX = centerX + labelRadius * Math.Cos(labelAngle * Math.PI / 180);
+            double labelY = centerY + labelRadius * Math.Sin(labelAngle * Math.PI / 180);
             if (PieCanvas.ActualHeight != null && PieCanvas.ActualHeight > 0)
             {
-                ActualFontSize = PieCanvas.ActualHeight * 0.05;
+                ActualFontSize = PieCanvas.ActualHeight * 0.04;
             }
 
             TextBlock label = new TextBlock
             {
                 Text = Labels[i],
                 Foreground = Brushes.Black,
-                FontSize = ActualFontSize
+                FontSize = ActualFontSize,
+                // RenderTransform = new TranslateTransform(-0.5, -0.5)
             };
-            if (labelAngle < 180)
+
+
+            label.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            label.Arrange(new Rect(label.DesiredSize));
+            double adjustedX = labelX - (label.ActualWidth / 2);
+            double adjustedY = labelY - (label.ActualHeight / 2);
+            if (adjustedX < 0)
             {
-                Canvas.SetLeft(label, labelX);
-                Canvas.SetTop(label, labelY);
+                adjustedX = 0;
             }
-            else
+            else if (adjustedX + label.ActualWidth > PieCanvas.ActualWidth)
             {
-                Canvas.SetLeft(label, labelX);
-                Canvas.SetBottom(label, PieCanvas.ActualHeight - labelY + (PieCanvas.ActualHeight / 13));
+                adjustedX = PieCanvas.ActualWidth - label.ActualWidth;
             }
+
+            if (adjustedY < 0)
+            {
+                adjustedY = 0;
+            }
+            else if (adjustedY + label.ActualHeight > PieCanvas.ActualHeight)
+            {
+                adjustedY = PieCanvas.ActualHeight - label.ActualHeight;
+            }
+
+            Canvas.SetLeft(label, adjustedX);
+            Canvas.SetTop(label, adjustedY);
 
             PieCanvas.Children.Add(label);
         }

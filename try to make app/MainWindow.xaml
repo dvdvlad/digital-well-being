@@ -9,6 +9,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="1000">
     <Grid>
-        <View:CirculeChart Values="{Binding PieValues }" Labels="{Binding PieLabels }"/>
+        <View:CirculeChart Labels="{Binding PieLabels }" Values="{Binding PieValues}"  />
     </Grid>
 </Window>
