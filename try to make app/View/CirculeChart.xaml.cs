@@ -125,8 +125,6 @@ public partial class CirculeChart : UserControl
                 FontSize = ActualFontSize,
                 // RenderTransform = new TranslateTransform(-0.5, -0.5)
             };
-
-
             label.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             label.Arrange(new Rect(label.DesiredSize));
             double adjustedX = labelX - (label.ActualWidth / 2);

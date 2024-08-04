@@ -21,7 +21,7 @@ public class ApplicationContext : DbContext
             .WithMany(ap => ap.Days)
             .UsingEntity<AppDay>(
                 j => j
-                    .HasOne(ad => ad.AppM)
+                    .HasOne(ad => ad.AppModel)
                     .WithMany(ap => ap.AppDays)
                     .HasForeignKey(ad => ad.AppId),
                 j => j

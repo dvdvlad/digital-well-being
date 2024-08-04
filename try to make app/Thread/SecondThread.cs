@@ -97,7 +97,7 @@ public class SecondThread
                     if (!dayModel.AppModels.Any(ap => ap.Name == runpr.ProcessName))
                     {
                         AppModel appModel = db.Apps.Where(ap => ap.Name == runpr.ProcessName).FirstOrDefault();
-                        dayModel.AppDays.Add(new AppDay(){AppM = appModel, AppId = appModel.ID, Day = dayModel, DayId = dayModel.ID});
+                        dayModel.AppDays.Add(new AppDay(){AppModel = appModel, AppId = appModel.ID, Day = dayModel, DayId = dayModel.ID});
                        db.Days.Update(dayModel);
                        try
                        {
