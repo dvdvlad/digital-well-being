@@ -40,7 +40,13 @@ public partial class HorizontallyChart : UserControl
     void DrawChart()
     {
         Canvas.Children.Clear();
-        // отрисовка фона
+        Rectangle bckground =  DrawBackground();
+        double lheight = (bckground.Height / Labels.Count);
+        DrawLabels(lheight, bckground.Width,bckground.Height);
+    }
+
+    private Rectangle DrawBackground()
+    {
         Rectangle BackgroundRectangle = new Rectangle();
         if (Canvas.ActualWidth >= 25 && Canvas.ActualHeight >= 25)
         {
@@ -53,9 +59,13 @@ public partial class HorizontallyChart : UserControl
         BackgroundRectangle.Fill = Brushes.Black;
         BackgroundRectangle.Margin = new Thickness(10);
         Canvas.Children.Add(BackgroundRectangle);
+        return BackgroundRectangle;
+    }
 
-        double Lheight = (BackgroundRectangle.Height / Labels.Count);
-        double LPreviousHeight = BackgroundRectangle.Height * 0.20;
+    private void DrawLabels(double Lheight, double BGWidth,double BGHeight)
+    {
+        
+        double LPreviousHeight = BGHeight * 0.20;;
         foreach (string label in Labels)
         {
             TextBlock Label = new TextBlock
@@ -68,10 +78,11 @@ public partial class HorizontallyChart : UserControl
             Canvas.SetBottom(Label, LPreviousHeight);
             Line StaticLine = new Line();
             StaticLine.X1 = 15;
-            if (!double.IsNaN(BackgroundRectangle.Width))
+            if (!double.IsNaN(BGWidth))
             {
-                StaticLine.X2 = BackgroundRectangle.Width;
+                StaticLine.X2 = BGWidth;
             }
+
             if (!double.IsNaN(LPreviousHeight))
             {
                 StaticLine.Y1 = LPreviousHeight;

@@ -9,11 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="026a0ce6-7ebc-447c-9c63-72d6cc538adb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.try to make app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.try to make app/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database things/AppDay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Database things/AppDay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database things/ApplicationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Database things/ApplicationContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thread/SecondThread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Thread/SecondThread.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/CirculeChart.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/View/CirculeChart.xaml.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +41,11 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/Database things/AppDay.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/Database things/ApplicationContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/MainWindow.xaml" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/Thread/SecondThread.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/View/CirculeChart.xaml.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/dff486f2d78d3f932d0f9bfa38043f85e358fb8c/src/libraries/System.Private.CoreLib/src/System/Double.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3cbf6797786510acdb9af7855f3c1a1768ca97f8576df5685698f31a6c25aa/Size.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7c1ab578e66a1b766b609c418417d9320b7743bbc9065d1639c5b570c87d3/DependencyObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -63,30 +63,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.try to make app.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.63235295&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;NewView&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.13816604&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.try to make app.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "XThreadsFramesViewSplitterKey": "0.63235295",
+    "git-widget-placeholder": "NewView",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.splitter.proportion": "0.13816604",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\vladv\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\vladv\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\vladv\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\vladv\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\vladv\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\vladv\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="try to make app" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -138,7 +138,8 @@
       <workItem from="1722154044102" duration="5728000" />
       <workItem from="1722582771354" duration="5935000" />
       <workItem from="1722618253453" duration="40000" />
-      <workItem from="1722776739811" duration="6424000" />
+      <workItem from="1722776739811" duration="6542000" />
+      <workItem from="1722869589558" duration="1853000" />
     </task>
     <task id="LOCAL-00001" summary="day fix">
       <option name="closed" value="true" />
@@ -148,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718371390502</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Create background for horizontallyChart with static labels">
+      <option name="closed" value="true" />
+      <created>1722784127550</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722784127550</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,7 +179,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="day fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="day fix" />
+    <MESSAGE value="Create background for horizontallyChart with static labels" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create background for horizontallyChart with static labels" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -180,10 +190,10 @@
           <line>81</line>
           <properties documentPath="A:\Programing\digital-well-being\try to make app\View\HorizontallyChart.xaml.cs" containingFunctionPresentation="Method 'DrawChart'">
             <startOffsets>
-              <option value="2805" />
+              <option value="2806" />
             </startOffsets>
             <endOffsets>
-              <option value="2837" />
+              <option value="2838" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="5" />
