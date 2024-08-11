@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -35,14 +36,19 @@ public partial class HorizontallyChart : UserControl
         InitializeComponent();
         List<string> label = new List<string> { "0", "2", "4", "6" };
         Labels = label;
+        List<double> Data = new List<double> { 1.0, 3.0, 6.0, 2.0, 1.0, 4.0, 2.0 };
+        Values = Data;
     }
 
     void DrawChart()
     {
         Canvas.Children.Clear();
-        Rectangle bckground =  DrawBackground();
+        Rectangle bckground = DrawBackground();
         double lheight = (bckground.Height / Labels.Count);
-        DrawLabels(lheight, bckground.Width,bckground.Height);
+        double lwidth = (bckground.Width / 8);
+        DrawVertLabels(lheight, lwidth, bckground.Width, bckground.Height);
+        DrawHorizLabels(lwidth,bckground.Width,bckground.Height); 
+        DrawColumns(lwidth,bckground.Height,bckground.Width,Values);
     }
 
     private Rectangle DrawBackground()
@@ -62,20 +68,21 @@ public partial class HorizontallyChart : UserControl
         return BackgroundRectangle;
     }
 
-    private void DrawLabels(double Lheight, double BGWidth,double BGHeight)
+    private void DrawVertLabels(double LHeight, double LWidth, double BGWidth, double BGHeight)
     {
-        
-        double LPreviousHeight = BGHeight * 0.20;;
-        foreach (string label in Labels)
+        double LPreviousHeight = BGHeight * 0.10;
+       
+        for (int i = 0; i < Labels.Count; i++)
         {
-            TextBlock Label = new TextBlock
+            TextBlock VerticalLabels = new TextBlock
             {
-                Text = label,
+                Text = Labels[i],
                 Foreground = Brushes.White,
                 FontSize = 15,
             };
-            Canvas.Children.Add(Label);
-            Canvas.SetBottom(Label, LPreviousHeight);
+            Canvas.Children.Add(VerticalLabels);
+            Canvas.SetBottom(VerticalLabels, LPreviousHeight);
+
             Line StaticLine = new Line();
             StaticLine.X1 = 15;
             if (!double.IsNaN(BGWidth))
@@ -91,8 +98,56 @@ public partial class HorizontallyChart : UserControl
 
             StaticLine.Stroke = Brushes.White;
             Canvas.Children.Add(StaticLine);
-            LPreviousHeight += Lheight;
+            Canvas.SetBottom(StaticLine,LPreviousHeight);
+            LPreviousHeight += LHeight;
         }
+    }
+
+    private void DrawHorizLabels(double lWith, double BGWidth, double BGHeight)
+    {
+        List<string> HorizLabels = new List<string> { "пн", "вт", "ср", "чт", "пт", "сб", "вс" };
+        double LpreviousWidth = BGWidth * 0.15; 
+        for (int i = 0; i < HorizLabels.Count; i++)
+        {
+            TextBlock HorzintalLabel = new TextBlock
+            {
+                Text = HorizLabels[i],
+                Foreground = Brushes.White,
+                FontSize = 15,
+            };
+            
+
+            Canvas.Children.Add(HorzintalLabel);
+            Canvas.SetBottom(HorzintalLabel, BGHeight*0.05);
+            Canvas.SetLeft(HorzintalLabel, LpreviousWidth);
+            
+            LpreviousWidth += lWith;
+        }
+    }
+
+    private void DrawColumns(double CWidth,double BGHeight, double BGWidth, List<double> Data)
+    {
+        if (Data != null)
+        {
+            double CSettWith = BGWidth * 0.15;
+            foreach (var data in Data)
+            {
+                double CHeight = BGHeight *0.75 * (data / Data.Max());
+                double ColumWidth = (BGWidth / Data.Count) - (BGWidth*0.05);
+                Rectangle Columns = new Rectangle
+                {
+                    Height = CHeight,
+                    Width = ColumWidth,
+                    Fill   = Brushes.DarkSlateGray,
+                   RadiusX = 10,
+                   RadiusY = 10
+                };
+                Canvas.Children.Add(Columns);
+                Canvas.SetLeft(Columns,CSettWith - (Columns.Width/2.5) );
+                Canvas.SetBottom(Columns,BGHeight*0.1);
+                CSettWith += CWidth;
+            }
+        } 
     }
 
     private void MainGrid_OnSizeChanged(object sender, SizeChangedEventArgs e)
