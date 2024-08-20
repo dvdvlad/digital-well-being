@@ -18,7 +18,7 @@ namespace try_to_make_app
         public MainWindow()
         {
             InitializeComponent();
-            PieValues = new List<double>() { 6.0, 3.0, 3.0 };
+            PieValues = new List<double>() { 6.3, 3.1, 3.2 };
             PieLabels = new List<string>() { "test1", "test2", "test3"};
             DataContext = this;
         }

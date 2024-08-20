@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -74,6 +75,12 @@ public partial class CirculeChart : UserControl
         double centerX = PieCanvas.ActualWidth / 2;
         double centerY = PieCanvas.ActualHeight / 2;
         double radius = Math.Min(centerX, centerY) - 40;
+        double ActualFontSize = 10;
+        if (PieCanvas.ActualHeight != null && PieCanvas.ActualHeight > 0)
+        {
+            ActualFontSize = PieCanvas.ActualHeight * 0.04;
+        }
+
         PieCanvas.Children.Clear();
         for (int i = 0; i < Values.Count; i++)
         {
@@ -108,15 +115,10 @@ public partial class CirculeChart : UserControl
             PieCanvas.Children.Add(path);
             // Добавление меток
             double labelOffset = radius * 0.15;
-            double ActualFontSize = 10;
             double labelAngle = angle - sliceAngle / 2;
             double labelRadius = radius + labelOffset; // Учитываем отступ как процент от радиуса
             double labelX = centerX + labelRadius * Math.Cos(labelAngle * Math.PI / 180);
             double labelY = centerY + labelRadius * Math.Sin(labelAngle * Math.PI / 180);
-            if (PieCanvas.ActualHeight != null && PieCanvas.ActualHeight > 0)
-            {
-                ActualFontSize = PieCanvas.ActualHeight * 0.04;
-            }
 
             TextBlock label = new TextBlock
             {
@@ -152,5 +154,26 @@ public partial class CirculeChart : UserControl
 
             PieCanvas.Children.Add(label);
         }
+
+        EllipseGeometry center = new EllipseGeometry(new Point(centerX, centerY), radius * 0.9, radius * 0.9);
+        PathGeometry centerPathGeometry = new PathGeometry();
+        centerPathGeometry.AddGeometry(center);
+        Path centerPath = new Path
+        {
+            Fill = Brushes.LightSlateGray,
+            Data = centerPathGeometry
+        };
+        PieCanvas.Children.Add(centerPath);
+        double Hours = Math.Round(Values.Sum(),2);
+        TextBlock DayTimeLabel = new TextBlock
+        {
+            Text = $"Сегодня:{Hours}ч",
+            Foreground = Brushes.Black,
+            FontSize = ActualFontSize * 2.0,
+        };
+        PieCanvas.Children.Add(DayTimeLabel);
+        DayTimeLabel.UpdateLayout();
+        Canvas.SetLeft(DayTimeLabel, centerX - (DayTimeLabel.ActualWidth / 2));
+        Canvas.SetTop(DayTimeLabel, centerY - (DayTimeLabel.ActualHeight / 2));
     }
 }
