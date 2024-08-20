@@ -5,8 +5,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace try_to_make_app.Database_things;
 
-static public class DataWorker
+public class DataWorker : IObservable
 {
+    public List<IObserver> Observers = new List<IObserver>();
+
+    public void AddObserver(IObserver o)
+    {
+        Observers.Add(o);
+    }
+
+    public void RemoveObser(IObserver o)
+    {
+        Observers.Remove(o);
+    }
+
+    public void Notify()
+    {
+        foreach (var observer in Observers)
+        {
+           observer.Update(); 
+        }
+    }
+
     public static void CreateDayModel()
     {
         using (ApplicationContext db = new ApplicationContext())
