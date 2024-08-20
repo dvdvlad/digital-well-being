@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -36,7 +37,7 @@ public partial class HorizontallyChart : UserControl
         InitializeComponent();
         List<string> label = new List<string> { "0", "2", "4", "6" };
         Labels = label;
-        List<double> Data = new List<double> { 1.0, 3.0, 6.0, 2.0, 1.0, 4.0, 2.0 };
+        List<double> Data = new List<double> { 1.0, 3.0, 20.0, 2.0, 1.0, 4.0, 2.0 };
         Values = Data;
     }
 
@@ -46,7 +47,7 @@ public partial class HorizontallyChart : UserControl
         Rectangle bckground = DrawBackground();
         double lheight = (bckground.Height / Labels.Count);
         double lwidth = (bckground.Width / 8);
-        DrawVertLabels(lheight, lwidth, bckground.Width, bckground.Height);
+        DrawVertLabels( lwidth, bckground.Width, bckground.Height);
         DrawHorizLabels(lwidth,bckground.Width,bckground.Height); 
         DrawColumns(lwidth,bckground.Height,bckground.Width,Values);
     }
@@ -68,15 +69,32 @@ public partial class HorizontallyChart : UserControl
         return BackgroundRectangle;
     }
 
-    private void DrawVertLabels(double LHeight, double LWidth, double BGWidth, double BGHeight)
+    private void DrawVertLabels( double LWidth, double BGWidth, double BGHeight)
     {
         double LPreviousHeight = BGHeight * 0.10;
-       
-        for (int i = 0; i < Labels.Count; i++)
+        List<double> data = new List<double>(); 
+        List<string> labels = new List<string>();
+        if (Values != null)
+        {
+            data = Values;
+        }
+
+        if (data.Count() >0)
+        {
+            double startprocen = 0;
+            for (int i = 0; startprocen <=1  ; i++)
+            {
+                labels.Add(Math.Ceiling(data.Max()*startprocen).ToString()); 
+                startprocen += 0.25;
+            }
+        }
+
+        double LHeight = BGHeight / labels.Count();
+        for (int i = 0; i < labels.Count; i++)
         {
             TextBlock VerticalLabels = new TextBlock
             {
-                Text = Labels[i],
+                Text = labels[i],
                 Foreground = Brushes.White,
                 FontSize = 15,
             };
@@ -132,7 +150,7 @@ public partial class HorizontallyChart : UserControl
             double CSettWith = BGWidth * 0.15;
             foreach (var data in Data)
             {
-                double CHeight = BGHeight *0.75 * (data / Data.Max());
+                double CHeight = BGHeight *0.80 * (data / Data.Max());
                 double ColumWidth = (BGWidth / Data.Count) - (BGWidth*0.05);
                 Rectangle Columns = new Rectangle
                 {
