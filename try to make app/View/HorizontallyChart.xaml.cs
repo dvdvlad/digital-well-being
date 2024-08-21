@@ -35,8 +35,6 @@ public partial class HorizontallyChart : UserControl
     public HorizontallyChart()
     {
         InitializeComponent();
-        List<string> label = new List<string> { "0", "2", "4", "6" };
-        Labels = label;
         List<double> Data = new List<double> { 1.0, 3.0, 20.0, 2.0, 1.0, 4.0, 2.0 };
         Values = Data;
     }
@@ -45,11 +43,26 @@ public partial class HorizontallyChart : UserControl
     {
         Canvas.Children.Clear();
         Rectangle bckground = DrawBackground();
-        double lheight = (bckground.Height / Labels.Count);
-        double lwidth = (bckground.Width / 8);
-        DrawVertLabels( lwidth, bckground.Width, bckground.Height);
-        DrawHorizLabels(lwidth,bckground.Width,bckground.Height); 
-        DrawColumns(lwidth,bckground.Height,bckground.Width,Values);
+        List<string> VertLabels = new List<string>();
+        if (Values != null)
+        {
+            VertLabels= GenerateLabels(Values);
+        }
+        double lheight;
+        double lwidth;
+        if (!double.IsNaN(bckground.Width) && !double.IsNaN(bckground.Height))
+        {
+            lheight = (bckground.Height/ VertLabels.Count);
+            lwidth = (bckground.Width/ 8);
+        }
+        else
+        {
+            lheight = 0;
+            lwidth = 0;
+        }
+        DrawVertLabels(lwidth, bckground.Width, bckground.Height,VertLabels);
+        DrawHorizLabels(lwidth, bckground.Width, bckground.Height);
+        DrawColumns(lwidth, bckground.Height, bckground.Width, Values,VertLabels);
     }
 
     private Rectangle DrawBackground()
@@ -69,26 +82,25 @@ public partial class HorizontallyChart : UserControl
         return BackgroundRectangle;
     }
 
-    private void DrawVertLabels( double LWidth, double BGWidth, double BGHeight)
+    private List<string> GenerateLabels(List<double> data)
     {
-        double LPreviousHeight = BGHeight * 0.10;
-        List<double> data = new List<double>(); 
         List<string> labels = new List<string>();
-        if (Values != null)
-        {
-            data = Values;
-        }
-
-        if (data.Count() >0)
+        if (data.Count() > 0)
         {
             double startprocen = 0;
-            for (int i = 0; startprocen <=1  ; i++)
+            for (int i = 0; startprocen <= 1; i++)
             {
-                labels.Add(Math.Ceiling(data.Max()*startprocen).ToString()); 
+                labels.Add(Math.Ceiling(data.Max() * startprocen).ToString());
                 startprocen += 0.25;
             }
         }
+        return labels;
+    }
 
+    private void DrawVertLabels(double LWidth, double BGWidth, double BGHeight, List<string> labels)
+    {
+
+        double LPreviousHeight = BGHeight * 0.10;
         double LHeight = BGHeight / labels.Count();
         for (int i = 0; i < labels.Count; i++)
         {
@@ -100,7 +112,7 @@ public partial class HorizontallyChart : UserControl
             };
             Canvas.Children.Add(VerticalLabels);
             Canvas.SetBottom(VerticalLabels, LPreviousHeight);
-
+            System.Windows.Controls.Canvas.SetLeft(VerticalLabels,10);
             Line StaticLine = new Line();
             StaticLine.X1 = 15;
             if (!double.IsNaN(BGWidth))
@@ -116,7 +128,7 @@ public partial class HorizontallyChart : UserControl
 
             StaticLine.Stroke = Brushes.White;
             Canvas.Children.Add(StaticLine);
-            Canvas.SetBottom(StaticLine,LPreviousHeight);
+            Canvas.SetBottom(StaticLine, LPreviousHeight);
             LPreviousHeight += LHeight;
         }
     }
@@ -124,7 +136,7 @@ public partial class HorizontallyChart : UserControl
     private void DrawHorizLabels(double lWith, double BGWidth, double BGHeight)
     {
         List<string> HorizLabels = new List<string> { "пн", "вт", "ср", "чт", "пт", "сб", "вс" };
-        double LpreviousWidth = BGWidth * 0.15; 
+        double LpreviousWidth = BGWidth * 0.15;
         for (int i = 0; i < HorizLabels.Count; i++)
         {
             TextBlock HorzintalLabel = new TextBlock
@@ -133,39 +145,39 @@ public partial class HorizontallyChart : UserControl
                 Foreground = Brushes.White,
                 FontSize = 15,
             };
-            
+
 
             Canvas.Children.Add(HorzintalLabel);
-            Canvas.SetBottom(HorzintalLabel, BGHeight*0.05);
+            Canvas.SetBottom(HorzintalLabel, BGHeight * 0.05);
             Canvas.SetLeft(HorzintalLabel, LpreviousWidth);
-            
+
             LpreviousWidth += lWith;
         }
     }
 
-    private void DrawColumns(double CWidth,double BGHeight, double BGWidth, List<double> Data)
+    private void DrawColumns(double CWidth, double BGHeight, double BGWidth, List<double> Data, List<string> VertLabels)
     {
         if (Data != null)
         {
             double CSettWith = BGWidth * 0.15;
             foreach (var data in Data)
             {
-                double CHeight = BGHeight *0.80 * (data / Data.Max());
-                double ColumWidth = (BGWidth / Data.Count) - (BGWidth*0.05);
+                double CHeight = BGHeight * 0.80 * (data / Data.Max());
+                double ColumWidth = (BGWidth / Data.Count) - (BGWidth * 0.05);
                 Rectangle Columns = new Rectangle
                 {
                     Height = CHeight,
                     Width = ColumWidth,
-                    Fill   = Brushes.DarkSlateGray,
-                   RadiusX = 10,
-                   RadiusY = 10
+                    Fill = Brushes.DarkSlateGray,
+                    RadiusX = 10,
+                    RadiusY = 10
                 };
                 Canvas.Children.Add(Columns);
-                Canvas.SetLeft(Columns,CSettWith - (Columns.Width/2.5) );
-                Canvas.SetBottom(Columns,BGHeight*0.1);
+                Canvas.SetLeft(Columns, CSettWith - (Columns.Width / 2.5));
+                Canvas.SetBottom(Columns, BGHeight * 0.1);
                 CSettWith += CWidth;
             }
-        } 
+        }
     }
 
     private void MainGrid_OnSizeChanged(object sender, SizeChangedEventArgs e)

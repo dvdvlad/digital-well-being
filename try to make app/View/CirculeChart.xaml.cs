@@ -78,7 +78,7 @@ public partial class CirculeChart : UserControl
         double ActualFontSize = 10;
         if (PieCanvas.ActualHeight != null && PieCanvas.ActualHeight > 0)
         {
-            ActualFontSize = PieCanvas.ActualHeight * 0.04;
+            ActualFontSize = PieCanvas.ActualHeight * 0.05;
         }
 
         PieCanvas.Children.Clear();
@@ -169,7 +169,7 @@ public partial class CirculeChart : UserControl
         {
             Text = $"Сегодня:{Hours}ч",
             Foreground = Brushes.Black,
-            FontSize = ActualFontSize * 2.0,
+            FontSize = ActualFontSize * 1.5,
         };
         PieCanvas.Children.Add(DayTimeLabel);
         DayTimeLabel.UpdateLayout();
