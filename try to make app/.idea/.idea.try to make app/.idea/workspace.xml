@@ -9,6 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="026a0ce6-7ebc-447c-9c63-72d6cc538adb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.try to make app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.try to make app/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/DataWorker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Model/DataWorker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SecondThread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SecondThread.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,14 +41,13 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://A:/Programing/digital-well-being/try to make app/Database things/AppDay.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://A:/Programing/digital-well-being/try to make app/Database things/ApplicationContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://A:/Programing/digital-well-being/try to make app/MainWindow.xaml" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://A:/Programing/digital-well-being/try to make app/Thread/SecondThread.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://A:/Programing/digital-well-being/try to make app/View/CirculeChart.xaml.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/Model/DataWorker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/obj/Debug/net7.0-windows/App.g.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/efcore/136f129ddca49729a24f0e65465fc638bd584c70/src/EFCore.Relational/Query/RelationalQueryableMethodTranslatingExpressionVisitor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/dff486f2d78d3f932d0f9bfa38043f85e358fb8c/src/libraries/System.Linq/src/System/Linq/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/dff486f2d78d3f932d0f9bfa38043f85e358fb8c/src/libraries/System.Private.CoreLib/src/System/Double.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/dff486f2d78d3f932d0f9bfa38043f85e358fb8c/src/libraries/System.Private.CoreLib/src/System/Threading/Thread.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/dff486f2d78d3f932d0f9bfa38043f85e358fb8c/src/libraries/System.Private.CoreLib/src/System/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3cbf6797786510acdb9af7855f3c1a1768ca97f8576df5685698f31a6c25aa/Size.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7c1ab578e66a1b766b609c418417d9320b7743bbc9065d1639c5b570c87d3/DependencyObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/84faa47640dc7bdde6a974cf9a49b4a6358f18e713b6fdd0f74db9871e32d4/FrameworkElement.cs" root0="SKIP_HIGHLIGHTING" />
@@ -68,14 +69,15 @@
     ".NET Project.try to make app.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "XThreadsFramesViewSplitterKey": "0.63235295",
-    "git-widget-placeholder": "NewView",
+    "ToolWindowGit.ShowToolbar": "false",
+    "XThreadsFramesViewSplitterKey": "0.95",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "com.maddyhome.idea.vim.ui.VimEmulationConfigurable",
     "settings.editor.splitter.proportion": "0.13816604",
     "vue.rearranger.settings.migration": "true"
   },
@@ -140,6 +142,9 @@
       <workItem from="1722618253453" duration="40000" />
       <workItem from="1722776739811" duration="6542000" />
       <workItem from="1722869589558" duration="1853000" />
+      <workItem from="1724600118540" duration="303000" />
+      <workItem from="1724600457266" duration="252000" />
+      <workItem from="1724600777201" duration="4251000" />
     </task>
     <task id="LOCAL-00001" summary="day fix">
       <option name="closed" value="true" />
@@ -186,17 +191,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/View/HorizontallyChart.xaml.cs</url>
-          <line>81</line>
-          <properties documentPath="A:\Programing\digital-well-being\try to make app\View\HorizontallyChart.xaml.cs" containingFunctionPresentation="Method 'DrawChart'">
+          <url>file://$PROJECT_DIR$/Model/DataWorker.cs</url>
+          <line>48</line>
+          <properties documentPath="A:\Programing\digital-well-being\try to make app\Model\DataWorker.cs" containingFunctionPresentation="Method 'CreateAddNewApps'">
             <startOffsets>
-              <option value="2806" />
+              <option value="1223" />
             </startOffsets>
             <endOffsets>
-              <option value="2838" />
+              <option value="1223" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
