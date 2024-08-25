@@ -25,8 +25,6 @@ public class SecondThread
 
                 DataWorker.CreateAddNewApps(getrunprocess);
                 DataWorker.UpdateApps(db.Days.OrderByDescending(d => d.ID).FirstOrDefault(), getrunprocess);
-                DataWorker.UpdateAddNewAppDayModel(db.Days.OrderByDescending(d => d.ID).FirstOrDefault(),
-                    getrunprocess);
             }
 
             Thread.Sleep(100);

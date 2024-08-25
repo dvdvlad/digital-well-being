@@ -23,7 +23,7 @@ public class DataWorker : IObservable
     {
         foreach (var observer in Observers)
         {
-           observer.Update(); 
+            observer.Update();
         }
     }
 
@@ -47,6 +47,7 @@ public class DataWorker : IObservable
                 if (!db.Apps.Any(a => a.Name == runpr.ProcessName))
                 {
                     db.Apps.Add(new AppModel(runpr.ProcessName) { Days = new List<DayModel>() { dayModel } });
+                    db.SaveChanges();
                 }
             }
 
@@ -83,42 +84,7 @@ public class DataWorker : IObservable
         }
     }
 
-    public static void UpdateAddNewAppDayModel(DayModel dayModel, List<Process> runproocess)
-    {
-        using (ApplicationContext db = new ApplicationContext())
-        {
-            if (dayModel.AppModels != null && dayModel.AppModels.Count > 0)
-            {
-                foreach (var runpr in runproocess)
-                {
-                    if (!dayModel.AppModels.Any(ap => ap.Name == runpr.ProcessName))
-                    {
-                        AppModel appModel = db.Apps.Where(ap => ap.Name == runpr.ProcessName).FirstOrDefault();
-                        dayModel.AppDays.Add(new AppDay()
-                            { AppModel = appModel, AppId = appModel.ID, Day = dayModel, DayId = dayModel.ID });
-                        db.Days.Update(dayModel);
-                        try
-                        {
-                            db.SaveChanges();
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-            }
-            else
-            {
-                foreach (var runpr in runproocess)
-                {
-                    AppModel appModel = new AppModel(runpr.ProcessName);
-                    appModel.Days.Add(dayModel);
-                    db.Apps.Update(appModel);
-                    db.SaveChanges();
-                }
-            }
-        }
-    }
+
 
     public static List<Process> GetRunningProcesses()
     {
