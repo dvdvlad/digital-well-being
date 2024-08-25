@@ -63,7 +63,19 @@ public partial class CirculeChart : UserControl
         {
             Brushes.Red,
             Brushes.Green,
-            Brushes.Blue
+            Brushes.Blue,
+            Brushes.Coral,
+            Brushes.Aqua,
+            Brushes.Fuchsia,
+            Brushes.Yellow,
+            Brushes.Red,
+            Brushes.Green,
+            Brushes.Blue,
+            Brushes.Coral,
+            Brushes.Aqua,
+            Brushes.Fuchsia,
+            Brushes.Yellow,
+            
         };
         double total = 0;
         foreach (var value in Values)
