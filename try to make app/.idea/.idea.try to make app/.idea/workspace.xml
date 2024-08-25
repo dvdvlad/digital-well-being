@@ -8,32 +8,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="026a0ce6-7ebc-447c-9c63-72d6cc538adb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.vs/ProjectEvaluation/try to make app.metadata.v7.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/ProjectEvaluation/try to make app.metadata.v7.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.vs/ProjectEvaluation/try to make app.projects.v7.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/ProjectEvaluation/try to make app.projects.v7.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.vs/try to make app/v17/.futdcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/try to make app/v17/.futdcache.v2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.vs/try to make app/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/try to make app/v17/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database things/AppViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Database things/AppViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database things/Database.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Database things/Database.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database things/Save.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Database things/Save.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thread/SecondThread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Thread/SecondThread.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.try to make app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.try to make app/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="autoShow" value="false" />
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="DevelopmentWithOldView" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dvdvlad&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dvdvlad/digital-well-being.git&quot;,
+    &quot;accountId&quot;: &quot;b3c6ac93-1e1b-4d6d-a73f-20d570ebbab3&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ffef3d5daa645783b817a27614a5266b35c6aacbe675162fdea7e2dea88f9a8/WpfPlot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/52b09ac89238d56cb6a5e7637da6e9b1176d731419d972ca2899781aa7684/Last.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7155f6cd588824e1bc449594dffc38a5e2d2cf92ad3b40e7f0693dcf4659d7/UIElement.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/96b646bb638ce81c6bf993ec7d96c192c68469c4835f8adce9825dee797b36/PiePlot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e4e8886b208868416341c18e8dec6533738df3eed99e22c8c4e3fd31cc9ee4/Window.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/Database things/AppDay.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/Database things/ApplicationContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/MainWindow.xaml" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/Thread/SecondThread.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://A:/Programing/digital-well-being/try to make app/View/CirculeChart.xaml.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/dff486f2d78d3f932d0f9bfa38043f85e358fb8c/src/libraries/System.Private.CoreLib/src/System/Double.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3cbf6797786510acdb9af7855f3c1a1768ca97f8576df5685698f31a6c25aa/Size.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7c1ab578e66a1b766b609c418417d9320b7743bbc9065d1639c5b570c87d3/DependencyObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/84faa47640dc7bdde6a974cf9a49b4a6358f18e713b6fdd0f74db9871e32d4/FrameworkElement.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/929a03632986a9152e57c7e7a9d6fa1e1447149d041918b95ce7568c56f5d57/XamlReader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bf427f6a6513f9a8da3858c4e06f86b28a4d39c94bfc5ff76436b648971d84f1/TextPointer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d05f70559122dfb21712dbedbe71a96d317ca8fd3867172ec7112d1e89f7adb/HwndSubclass.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -46,16 +65,24 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Project.try to make app.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "settings.editor.splitter.proportion": "0.13816604"
+    "XThreadsFramesViewSplitterKey": "0.63235295",
+    "git-widget-placeholder": "NewView",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.splitter.proportion": "0.13816604",
+    "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\vladv\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\vladv\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\vladv\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\vladv\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
       "C:\\Users\\vladv\\AppData\\Local\\Symbols\\src"
     ]
   }
@@ -92,10 +119,52 @@
       <workItem from="1697379054397" duration="411000" />
       <workItem from="1700064806966" duration="229000" />
       <workItem from="1700065097778" duration="5269000" />
+      <workItem from="1717162063351" duration="2411000" />
+      <workItem from="1718195135829" duration="354000" />
+      <workItem from="1718195530563" duration="359000" />
+      <workItem from="1718371299509" duration="798000" />
+      <workItem from="1721125436230" duration="1076000" />
+      <workItem from="1721287373824" duration="8195000" />
+      <workItem from="1721297898213" duration="1689000" />
+      <workItem from="1721303577859" duration="89000" />
+      <workItem from="1721303734946" duration="4950000" />
+      <workItem from="1721311340639" duration="5471000" />
+      <workItem from="1721560124813" duration="969000" />
+      <workItem from="1721802076507" duration="4784000" />
+      <workItem from="1721807608432" duration="8863000" />
+      <workItem from="1722151372520" duration="2227000" />
+      <workItem from="1722153746683" duration="106000" />
+      <workItem from="1722153867056" duration="159000" />
+      <workItem from="1722154044102" duration="5728000" />
+      <workItem from="1722582771354" duration="5935000" />
+      <workItem from="1722618253453" duration="40000" />
+      <workItem from="1722776739811" duration="6542000" />
+      <workItem from="1722869589558" duration="1853000" />
     </task>
+    <task id="LOCAL-00001" summary="day fix">
+      <option name="closed" value="true" />
+      <created>1718371390502</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718371390502</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Create background for horizontallyChart with static labels">
+      <option name="closed" value="true" />
+      <created>1722784127550</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722784127550</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -109,29 +178,42 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="day fix" />
+    <MESSAGE value="Create background for horizontallyChart with static labels" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create background for horizontallyChart with static labels" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Database things/Save.cs</url>
-          <line>47</line>
-          <properties documentPath="F:\Programing\C#\try to make app\try to make app\Database things\Save.cs" initialLine="47" containingFunctionPresentation="Method 'LoadDatabase'">
+          <url>file://$PROJECT_DIR$/View/HorizontallyChart.xaml.cs</url>
+          <line>81</line>
+          <properties documentPath="A:\Programing\digital-well-being\try to make app\View\HorizontallyChart.xaml.cs" containingFunctionPresentation="Method 'DrawChart'">
             <startOffsets>
-              <option value="1444" />
+              <option value="2806" />
             </startOffsets>
             <endOffsets>
-              <option value="1465" />
+              <option value="2838" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Type#try_to_make_app.Database_things.AppViewModel" memberName="Apps" />
+        <PinnedItemInfo parentTag="Type#try_to_make_app.Database_things.DayViewModel" memberName="Apps" />
+        <PinnedItemInfo parentTag="Type#try_to_make_app.MainWindow" memberName="DayViewModel" />
+        <PinnedItemInfo parentTag="Type#System.Windows.Controls.TextBlock" memberName="Text" />
+        <PinnedItemInfo parentTag="Type#try_to_make_app.Database_things.AppModel" memberName="Name" />
+        <PinnedItemInfo parentTag="Type#System.Collections.Generic.List`1" memberName="_items" />
+        <PinnedItemInfo parentTag="Type#try_to_make_app.Database_things.AppModel" memberName="WorkTimeToDay" />
       </pinned-members>
     </pin-to-top-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ScottPlot.Plottable;
 using try_to_make_app.Database_things;
+using try_to_make_app.ViewModel;
 
 namespace try_to_make_app
 {
@@ -15,7 +16,9 @@ namespace try_to_make_app
     {
         public MainWindow()
         {
-
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            InitializeComponent();
+            DataContext = mainWindowViewModel;
         }
     }
 }
