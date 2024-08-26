@@ -21,10 +21,12 @@ namespace try_to_make_app
             {
                 db.Database.EnsureCreated();
             }
-            SecondThread secondThread = new SecondThread();
+
+            DataWorker dataWorker = new DataWorker();
+            SecondThread secondThread = new SecondThread(dataWorker);
             Thread SecondThread = new Thread(secondThread.MainTwo){IsBackground = true};
             SecondThread.Start();
-            MainWindow window = new MainWindow();
+            MainWindow window = new MainWindow(dataWorker);
             app.Run(window);
             
         }

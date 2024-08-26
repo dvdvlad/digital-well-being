@@ -7,8 +7,9 @@ using try_to_make_app.Database_things;
 
 namespace try_to_make_app.ViewModel;
 
-public class MainWindowViewModel : IObserver 
+public class MainWindowViewModel : IObserver
 {
+    public DataWorker DataWorker;
     public List<double> PieValues { get; set; }
     public List<string> PieLabels { get; set; }
     public List<double> HorizontallyCharyValues { get; set; }
@@ -34,8 +35,10 @@ public class MainWindowViewModel : IObserver
         }
     }
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(DataWorker dataWorker)
     {
+        DataWorker = dataWorker; 
+        dataWorker.AddObserver(this);
         Update();
     }
     public void Update()

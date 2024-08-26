@@ -9,4 +9,13 @@ public class AppDay
     public DayModel Day { get; set; }
     
     public double WorkTimeToDay { get; set; }
+
+    public AppDay(DayModel dayModel, AppModel appModel)
+    {
+        AppModel = appModel;
+        Day = dayModel;
+    }
+    public AppDay()
+    {
+    }
 }

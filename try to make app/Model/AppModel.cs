@@ -41,7 +41,7 @@ public class AppModel : INotifyPropertyChanged
 
     public AppModel()
     {
-        
+        AppDays = new List<AppDay>();
     }
 public event PropertyChangedEventHandler PropertyChanged;
 

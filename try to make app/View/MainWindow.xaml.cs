@@ -14,9 +14,9 @@ namespace try_to_make_app
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(DataWorker dataWorker)
         {
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dataWorker);
             InitializeComponent();
             DataContext = mainWindowViewModel;
         }

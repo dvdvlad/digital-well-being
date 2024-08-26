@@ -10,8 +10,16 @@ namespace try_to_make_app.Database_things;
 
 public class SecondThread
 {
+    public DataWorker DataWorker;
+
+    public SecondThread(DataWorker dataWorker)
+    {
+        DataWorker = dataWorker;
+    }
+
     public void MainTwo()
     {
+        
         while (true)
         {
             using (ApplicationContext db = new ApplicationContext())
@@ -23,10 +31,10 @@ public class SecondThread
                     DataWorker.CreateDayModel();
                 }
 
-                DataWorker.CreateAddNewApps(getrunprocess);
+                DataWorker.CreateAddNewApps(getrunprocess, dayModel.ID);
                 DataWorker.UpdateApps(db.Days.OrderByDescending(d => d.ID).FirstOrDefault(), getrunprocess);
             }
-
+            DataWorker.Notify(); 
             Thread.Sleep(100);
         }
     }

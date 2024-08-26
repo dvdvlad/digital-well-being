@@ -37,7 +37,7 @@ public class DataWorker : IObservable
         }
     }
 
-    public static void CreateAddNewApps(List<Process> runningprocesses)
+    public static void CreateAddNewApps(List<Process> runningprocesses, int DayID)
     {
         using (ApplicationContext db = new ApplicationContext())
         {
@@ -48,6 +48,21 @@ public class DataWorker : IObservable
                 {
                     db.Apps.Add(new AppModel(runpr.ProcessName) { Days = new List<DayModel>() { dayModel } });
                     db.SaveChanges();
+                }
+                else
+                {
+                    List<AppModel> appModels = db.Apps
+                        .Include(am => am.Days)
+                        .ToList();
+                    AppModel appModel = appModels.Find(ap => ap.Name == runpr.ProcessName);
+                     if (!appModel.Days.Any(dm => dm.ID == DayID))
+                    {
+                        if (appModel.AppDays != null)
+                        {
+                            appModel.AppDays.Add(new AppDay(dayModel,appModel));
+                            db.SaveChanges();
+                        }
+                    }
                 }
             }
 
@@ -83,9 +98,6 @@ public class DataWorker : IObservable
             }
         }
     }
-
-
-
     public static List<Process> GetRunningProcesses()
     {
         List<Process> runningapps = new List<Process>();
