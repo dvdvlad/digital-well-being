@@ -29,10 +29,11 @@ public class SecondThread
                 if (dayModel == null || dayModel.Today != DateTime.Today)
                 {
                     DataWorker.CreateDayModel();
+                    dayModel = db.Days.Include(d => d.AppModels).OrderByDescending(d => d.ID).FirstOrDefault();
                 }
 
                 DataWorker.CreateAddNewApps(getrunprocess, dayModel.ID);
-                DataWorker.UpdateApps(db.Days.OrderByDescending(d => d.ID).FirstOrDefault(), getrunprocess);
+                DataWorker.UpdateApps(dayModel.ID,getrunprocess);
             }
             DataWorker.Notify(); 
             Thread.Sleep(100);

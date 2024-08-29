@@ -70,7 +70,7 @@ public class DataWorker : IObservable
         }
     }
 
-    public static void UpdateApps(DayModel dayModel, List<Process> runningapps)
+    public static void  UpdateApps(int DayID, List<Process> runningapps)
     {
         using (ApplicationContext db = new ApplicationContext())
         {
@@ -81,12 +81,11 @@ public class DataWorker : IObservable
                 {
                     if (runpr.ProcessName == app.Name)
                     {
-                        app.WorkTimeOnWeek.AddSeconds(1.0);
                         if (app.AppDays != null)
                         {
                             foreach (var ad in app.AppDays)
                             {
-                                if (ad.DayId == dayModel.ID)
+                                if (ad.DayId ==DayID)
                                 {
                                     ad.WorkTimeToDay += 1.0;
                                     db.SaveChanges();
@@ -108,7 +107,6 @@ public class DataWorker : IObservable
             "try to make app", "explorer", "TextInputHost", "ApplicationFrameHost"
         };
         List<Process> processes = new List<Process>(Process.GetProcesses());
-
         foreach (var pr in processes)
         {
             bool stateofcheck = false;
@@ -119,6 +117,7 @@ public class DataWorker : IObservable
                     if (pr.ProcessName == syPr)
                     {
                         stateofcheck = false;
+                        
                         break;
                     }
                     else
@@ -128,7 +127,7 @@ public class DataWorker : IObservable
                 }
 
                 if (stateofcheck)
-                {
+                {   
                     runningapps.Add(pr);
                 }
             }

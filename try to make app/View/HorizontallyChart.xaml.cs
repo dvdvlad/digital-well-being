@@ -20,13 +20,28 @@ public partial class HorizontallyChart : UserControl
             nameof(Labels), typeof(List<string>), typeof(HorizontallyChart),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange, OnvaluesChanged));
 
-    private List<double> Values
+    public List<double> Values
     {
-        get => (List<double>)GetValue(ValuesProperty);
+        get
+        {
+            List<double> _data = (List<double>)GetValue(ValuesProperty);
+            if (_data != null)
+            {
+                List<double> data = _data.Select(a => a).ToList();
+                for (int i = 0; i < data.Count; i++)
+                {
+                    data[i] = data[i]/360.0;
+                }
+
+                return data;
+            }
+
+            return _data;
+        }
         set => SetValue(ValuesProperty, value);
     }
 
-    private List<string> Labels
+    public List<string> Labels
     {
         get => (List<string>)GetValue(LabelsProperty);
         set => SetValue(LabelsProperty, value);
@@ -35,8 +50,6 @@ public partial class HorizontallyChart : UserControl
     public HorizontallyChart()
     {
         InitializeComponent();
-        List<double> Data = new List<double> { 1.0, 3.0, 20.0, 2.0, 1.0, 4.0, 2.0 };
-        Values = Data;
     }
 
     void DrawChart()
@@ -46,23 +59,25 @@ public partial class HorizontallyChart : UserControl
         List<string> VertLabels = new List<string>();
         if (Values != null)
         {
-            VertLabels= GenerateLabels(Values);
+            VertLabels = GenerateLabels(Values);
         }
+
         double lheight;
         double lwidth;
         if (!double.IsNaN(bckground.Width) && !double.IsNaN(bckground.Height))
         {
-            lheight = (bckground.Height/ VertLabels.Count);
-            lwidth = (bckground.Width/ 8);
+            lheight = (bckground.Height / VertLabels.Count);
+            lwidth = (bckground.Width / 8);
         }
         else
         {
             lheight = 0;
             lwidth = 0;
         }
-        DrawVertLabels(lwidth, bckground.Width, bckground.Height,VertLabels);
+
+        DrawVertLabels(lwidth, bckground.Width, bckground.Height, VertLabels);
         DrawHorizLabels(lwidth, bckground.Width, bckground.Height);
-        DrawColumns(lwidth, bckground.Height, bckground.Width, Values,VertLabels);
+        DrawColumns(lwidth, bckground.Height, bckground.Width, Values, VertLabels);
     }
 
     private Rectangle DrawBackground()
@@ -94,12 +109,12 @@ public partial class HorizontallyChart : UserControl
                 startprocen += 0.25;
             }
         }
+
         return labels;
     }
 
     private void DrawVertLabels(double LWidth, double BGWidth, double BGHeight, List<string> labels)
     {
-
         double LPreviousHeight = BGHeight * 0.10;
         double LHeight = BGHeight / labels.Count();
         for (int i = 0; i < labels.Count; i++)
@@ -112,7 +127,7 @@ public partial class HorizontallyChart : UserControl
             };
             Canvas.Children.Add(VerticalLabels);
             Canvas.SetBottom(VerticalLabels, LPreviousHeight);
-            System.Windows.Controls.Canvas.SetLeft(VerticalLabels,10);
+            System.Windows.Controls.Canvas.SetLeft(VerticalLabels, 10);
             Line StaticLine = new Line();
             StaticLine.X1 = 15;
             if (!double.IsNaN(BGWidth))
@@ -135,8 +150,13 @@ public partial class HorizontallyChart : UserControl
 
     private void DrawHorizLabels(double lWith, double BGWidth, double BGHeight)
     {
-        List<string> HorizLabels = new List<string> { "пн", "вт", "ср", "чт", "пт", "сб", "вс" };
+        List<string> HorizLabels = Labels;
         double LpreviousWidth = BGWidth * 0.15;
+        if (HorizLabels == null)
+        {
+            return;
+        }
+
         for (int i = 0; i < HorizLabels.Count; i++)
         {
             TextBlock HorzintalLabel = new TextBlock

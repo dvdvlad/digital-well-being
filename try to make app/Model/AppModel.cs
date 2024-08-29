@@ -7,30 +7,26 @@ using System.Runtime.CompilerServices;
 namespace try_to_make_app.Database_things;
 
 [Serializable]
-public class AppModel : INotifyPropertyChanged 
+public class AppModel  
 {
     public int ID { get; set; }
     public List<AppDay> AppDays { get; set; }
-    public List<DayModel> Days { get; set; } = new ();
+    public List<DayModel> Days { get; set; }
     private string name = "нет имени";
-    private DateTime worktimeonweek = DateTime.MinValue;
-
     public string Name
     {
         get { return name; }
-        set
-        {
-            name = value;
-            OnPropertyChanged("Name");
-        }
+        set { name = value; }
     }
-    public DateTime WorkTimeOnWeek
+
+    private DateTime allowedtitme = DateTime.MinValue;
+
+    public DateTime AllowedTime
     {
-        get { return worktimeonweek; }
+        get => allowedtitme;
         set
         {
-            worktimeonweek = value;
-            OnPropertyChanged("DatatimeOnWeek");
+            allowedtitme = value;
         }
     }
 
@@ -43,12 +39,4 @@ public class AppModel : INotifyPropertyChanged
     {
         AppDays = new List<AppDay>();
     }
-public event PropertyChangedEventHandler PropertyChanged;
-
-    public void OnPropertyChanged([CallerMemberName] string prop = "")
-    {
-        if (PropertyChanged != null)
-            PropertyChanged(this, new PropertyChangedEventArgs(prop));
-    }
-
 }

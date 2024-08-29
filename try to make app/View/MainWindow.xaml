@@ -22,7 +22,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <View:CirculeChart Labels="{Binding PieLabels}" Values="{Binding PieValues}" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <View:HorizontallyChart Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="4"/>
+        <View:CirculeChart Labels="{Binding PieLabels, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Values="{Binding PieValues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <View:HorizontallyChart Labels="{Binding HorizontallyChartLabels, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Values="{Binding HorizontallyCharyValues,UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="4"/>
     </Grid>
 </Window>
