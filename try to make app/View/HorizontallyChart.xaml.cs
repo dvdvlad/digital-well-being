@@ -54,7 +54,7 @@ public partial class HorizontallyChart : UserControl
 
     void DrawChart()
     {
-        Canvas.Children.Clear();
+        ChartCanvas.Children.Clear();
         Rectangle bckground = DrawBackground();
         List<string> VertLabels = new List<string>();
         if (Values != null)
@@ -83,17 +83,17 @@ public partial class HorizontallyChart : UserControl
     private Rectangle DrawBackground()
     {
         Rectangle BackgroundRectangle = new Rectangle();
-        if (Canvas.ActualWidth >= 25 && Canvas.ActualHeight >= 25)
+        if (ChartCanvas.ActualWidth >= 25 && ChartCanvas.ActualHeight >= 25)
         {
-            BackgroundRectangle.Width = Canvas.ActualWidth - 25;
-            BackgroundRectangle.Height = Canvas.ActualHeight - 25;
+            BackgroundRectangle.Width = ChartCanvas.ActualWidth - 25;
+            BackgroundRectangle.Height = ChartCanvas.ActualHeight - 25;
         }
 
         BackgroundRectangle.RadiusX = 15.0;
         BackgroundRectangle.RadiusY = 15.0;
         BackgroundRectangle.Fill = Brushes.Black;
         BackgroundRectangle.Margin = new Thickness(10);
-        Canvas.Children.Add(BackgroundRectangle);
+        ChartCanvas.Children.Add(BackgroundRectangle);
         return BackgroundRectangle;
     }
 
@@ -125,7 +125,7 @@ public partial class HorizontallyChart : UserControl
                 Foreground = Brushes.White,
                 FontSize = 15,
             };
-            Canvas.Children.Add(VerticalLabels);
+            ChartCanvas.Children.Add(VerticalLabels);
             Canvas.SetBottom(VerticalLabels, LPreviousHeight);
             System.Windows.Controls.Canvas.SetLeft(VerticalLabels, 10);
             Line StaticLine = new Line();
@@ -142,7 +142,7 @@ public partial class HorizontallyChart : UserControl
             }
 
             StaticLine.Stroke = Brushes.White;
-            Canvas.Children.Add(StaticLine);
+            ChartCanvas.Children.Add(StaticLine);
             Canvas.SetBottom(StaticLine, LPreviousHeight);
             LPreviousHeight += LHeight;
         }
@@ -167,7 +167,7 @@ public partial class HorizontallyChart : UserControl
             };
 
 
-            Canvas.Children.Add(HorzintalLabel);
+            ChartCanvas.Children.Add(HorzintalLabel);
             Canvas.SetBottom(HorzintalLabel, BGHeight * 0.05);
             Canvas.SetLeft(HorzintalLabel, LpreviousWidth);
 
@@ -192,7 +192,7 @@ public partial class HorizontallyChart : UserControl
                     RadiusX = 10,
                     RadiusY = 10
                 };
-                Canvas.Children.Add(Columns);
+                ChartCanvas.Children.Add(Columns);
                 Canvas.SetLeft(Columns, CSettWith - (Columns.Width / 2.5));
                 Canvas.SetBottom(Columns, BGHeight * 0.1);
                 CSettWith += CWidth;
@@ -200,7 +200,7 @@ public partial class HorizontallyChart : UserControl
         }
     }
 
-    private void MainGrid_OnSizeChanged(object sender, SizeChangedEventArgs e)
+    private void ChartCanvasSizeChanged(object sender, SizeChangedEventArgs e)
     {
         DrawChart();
     }

@@ -94,7 +94,7 @@ public partial class CirculeChart : UserControl
         }
 
         PieCanvas.Children.Clear();
-        for (int i = 0; i < Values.Count; i++)
+        for (int i = 0; i < Values.Count && i < Labels.Count; i++)
         {
             double sliceAngle = Values[i] / total * 360;
             PathFigure pathFigure = new PathFigure

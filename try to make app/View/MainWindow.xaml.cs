@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ScottPlot.Plottable;
 using try_to_make_app.Database_things;
+using try_to_make_app.View;
 using try_to_make_app.ViewModel;
 
 namespace try_to_make_app

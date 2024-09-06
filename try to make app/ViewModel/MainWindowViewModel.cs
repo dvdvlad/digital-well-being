@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Linq;
 using System.Windows.Documents;
@@ -12,8 +13,19 @@ namespace try_to_make_app.ViewModel;
 public class MainWindowViewModel : BaseViewModel, IObserver
 {
     public DataWorker DataWorker;
+    public double LeftAngel = 0.0;
+    public double RightAngel = 180.0;
     private List<double> _pievalues;
-
+    private ObservableCollection<AppModel> _appModels;
+    public ObservableCollection<AppModel> AppModels
+    {
+        get => _appModels;
+        set
+        {
+            _appModels = value;
+            OnPropertyChanged("AppModels");
+        }
+    } 
     public List<double> PieValues
     {
         get => _pievalues;
@@ -32,7 +44,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         set
         {
             _pielabels = value;
-            // OnPropertyChanged("PieLabels");
+            OnPropertyChanged("PieLabels");
         }
     }
 
@@ -44,7 +56,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         set
         {
             _horizontallycharyvalues = value;
-            // OnPropertyChanged("HorizontallyCharyValues");
+            OnPropertyChanged("HorizontallyCharyValues");
         }
     }
 
@@ -56,26 +68,51 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         set
         {
             _horizontallychartlabels = value;
-            // OnPropertyChanged("HorizontallyChartLabels");
+            OnPropertyChanged("HorizontallyChartLabels");
         }
     }
 
+    private int dayID = 1;
+
     private int DayID
     {
-        get
-        {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                try
-                {
-                    return db.Days.OrderByDescending(d => d.ID).FirstOrDefault().ID;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+        get { return dayID; }
+        set { dayID = value; }
+    }
 
-                return 0;
+
+    public RelayComand NextDayCommand =>
+        _nextDayCommand ??= new RelayComand(execute => NexDay(), canExecute => { return true; });
+
+    private RelayComand _nextDayCommand;
+
+    private void NexDay()
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            Console.WriteLine("test");
+            if (DayID < db.Days.Count())
+            {
+                this.DayID += 1;
+                Update();
+            }
+        }
+    }
+
+    public RelayComand PreviusDayCommand =>
+        _previusDayCommand ??= new RelayComand(execute => PreviusDay(), canExecute => { return true; });
+
+    private RelayComand _previusDayCommand;
+
+    private void PreviusDay()
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            Console.WriteLine("test2");
+            if (DayID > 0)
+            {
+                this.DayID -= 1;
+                Update();
             }
         }
     }
@@ -83,8 +120,24 @@ public class MainWindowViewModel : BaseViewModel, IObserver
     public MainWindowViewModel(DataWorker dataWorker)
     {
         DataWorker = dataWorker;
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            try
+            {
+                DayID = db.Days.OrderByDescending(d => d.ID).FirstOrDefault().ID;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
         dataWorker.AddObserver(this);
         Update();
+    }
+
+    public MainWindowViewModel()
+    {
     }
 
     public void Update()
@@ -95,6 +148,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
             HorizontallyCharyValues = GetHorizontallyChartValues();
             PieLabels = GetAppsLabels(DayID);
             PieValues = GetAppsValues(DayID);
+            AppModels = getAppModels();
         }
     }
 
@@ -125,7 +179,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
             List<DayModel> lastSevenDayModels = new List<DayModel>();
             if (db.Days.Count() >= 7)
             {
-                for (int i = db.Days.Count(); i > db.Days.Count() - 7; i--)
+                for (int i = db.Days.Count() -1; i > db.Days.Count() - 7; i--)
                 {
                     DayModel dayModel = db.Days.Include(d => d.AppDays).ToArray()[i];
                     lastSevenDayModels.Add(dayModel);
@@ -159,6 +213,13 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         return HorizontallyChartValues;
     }
 
+    private ObservableCollection<AppModel> getAppModels()
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            return new ObservableCollection<AppModel>(db.Apps.ToList());
+        }
+    }
     private List<string> GetHorizontallyChartLabels()
     {
         List<string> HorizontallyChartLabels = new List<string>();

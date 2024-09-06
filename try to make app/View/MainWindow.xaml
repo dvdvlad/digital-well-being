@@ -5,24 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
         xmlns:databaseThings="clr-namespace:try_to_make_app.Database_things"
-        xmlns:View="clr-namespace:try_to_make_app.View"
+        xmlns:View="clr-namespace:try_to_make_app.View" xmlns:viewmodel="clr-namespace:try_to_make_app.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
         mc:Ignorable="d"
+         xmlns:local="clr-namespace:try_to_make_app.ViewModel"
         Title="MainWindow" Height="450" Width="800"
-        Background="DimGray">
-    <Grid>
+        Background="DarkSlateGray">
+    <Grid Background="DarkSlateGray">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <View:CirculeChart Labels="{Binding PieLabels, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Values="{Binding PieValues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <View:HorizontallyChart Labels="{Binding HorizontallyChartLabels, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Values="{Binding HorizontallyCharyValues,UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Grid.ColumnSpan="4"/>
+        <View:CirculeChart Labels="{Binding PieLabels, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
+                           Values="{Binding PieValues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
+                           Grid.Row="0"
+                           Grid.Column="0" />
+        <Grid Grid.Row="0" Grid.Column="1" Name="Horisationchart">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.10*" />
+                <ColumnDefinition Width="0.8*" />
+                <ColumnDefinition Width="0.10*" />
+            </Grid.ColumnDefinitions>
+            <View:CustomButon RotationAngel="0.0" Command="{Binding PreviusDayCommand}"/>
+            <View:HorizontallyChart Grid.Column="1" Labels="{Binding HorizontallyChartLabels, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Values="{Binding HorizontallyCharyValues,UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+            <View:CustomButon Grid.Column="2" RotationAngel="180" Command="{Binding NextDayCommand}"/>
+        </Grid>
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Name="AppsView" Background="DarkSlateGray">
+           <View:AppsView AppModels="{Binding AppModels}" /> 
+        </Grid>
     </Grid>
 </Window>
