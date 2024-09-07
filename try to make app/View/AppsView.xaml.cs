@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using try_to_make_app.Database_things;
+using try_to_make_app.ViewModel;
 
 namespace try_to_make_app.View;
 

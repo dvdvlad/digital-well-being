@@ -82,11 +82,11 @@ public class MainWindowViewModel : BaseViewModel, IObserver
 
 
     public RelayComand NextDayCommand =>
-        _nextDayCommand ??= new RelayComand(execute => NexDay(), canExecute => { return true; });
+        _nextDayCommand ??= new RelayComand(execute => NexDayMethod(), canExecute => { return true; });
 
     private RelayComand _nextDayCommand;
 
-    private void NexDay()
+    private void NexDayMethod()
     {
         using (ApplicationContext db = new ApplicationContext())
         {
@@ -100,11 +100,11 @@ public class MainWindowViewModel : BaseViewModel, IObserver
     }
 
     public RelayComand PreviusDayCommand =>
-        _previusDayCommand ??= new RelayComand(execute => PreviusDay(), canExecute => { return true; });
+        _previusDayCommand ??= new RelayComand(execute => PreviusDayMethod(), canExecute => { return true; });
 
     private RelayComand _previusDayCommand;
 
-    private void PreviusDay()
+    private void PreviusDayMethod()
     {
         using (ApplicationContext db = new ApplicationContext())
         {
@@ -117,6 +117,13 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         }
     }
 
+    public RelayComand OpenAppWindow;
+    private RelayComand _openappwindow;
+
+    private void OpenAppWindowMethod()
+    {
+       Console.WriteLine("не реализовано"); 
+    }
     public MainWindowViewModel(DataWorker dataWorker)
     {
         DataWorker = dataWorker;
