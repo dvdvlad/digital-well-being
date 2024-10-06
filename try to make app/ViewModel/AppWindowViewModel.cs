@@ -10,7 +10,7 @@ namespace try_to_make_app.ViewModel;
 
 public class AppWindowViewModel : BaseViewModel, IObserver
 {
-    private DateTime AllowedTime
+    public DateTime AllowedTime
     {
         get => _alloweDateTime;
         set
@@ -22,7 +22,7 @@ public class AppWindowViewModel : BaseViewModel, IObserver
     private DateTime _alloweDateTime = DateTime.MinValue;
 
     private List<double> _weekusadgetime = new List<double>();
-    private List<double> WeekUsadgeTime
+    public List<double> WeekUsadgeTime
     {
         get => _weekusadgetime;
         set
@@ -33,7 +33,7 @@ public class AppWindowViewModel : BaseViewModel, IObserver
     }
 
     private string _appname ="noname";
-    private string AppName
+    public string AppName
     {
         get => _appname;
         set
@@ -71,6 +71,19 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         }
     }
 
+    public AppWindowViewModel(string appname)
+    {
+        AppModel appModel = new AppModel();
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            appModel = db.Apps.Include(ap => ap.AppDays).Where(ap => ap.Name == appname).FirstOrDefault();
+        }
+
+        AppID = appModel.ID;
+        AppName = appModel.Name;
+        AllowedTime = appModel.AllowedTime;
+        WeekUsadgeTime = appModel.AppDays.Select(am => am.WorkTimeToDay).ToList();
+    }
     public void Update()
     {
         getWeekUsadgeTime(AppID);
