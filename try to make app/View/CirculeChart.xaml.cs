@@ -86,7 +86,7 @@ public partial class CirculeChart : UserControl
         double angle = 0;
         double centerX = PieCanvas.ActualWidth / 2;
         double centerY = PieCanvas.ActualHeight / 2;
-        double radius = Math.Min(centerX, centerY) - 40;
+        double radius = Math.Max(Math.Min(centerX, centerY) - 40,0);
         double ActualFontSize = 10;
         if (PieCanvas.ActualHeight != null && PieCanvas.ActualHeight > 0)
         {

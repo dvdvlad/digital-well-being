@@ -33,8 +33,8 @@
             <View:HorizontallyChart Grid.Column="1" Labels="{Binding HorizontallyChartLabels, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Values="{Binding HorizontallyCharyValues,UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
             <View:CustomButon Grid.Column="2" RotationAngel="180" Command="{Binding NextDayCommand}"/>
         </Grid>
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Name="AppsView" Background="DarkSlateGray">
-           <View:AppsView AppModels="{Binding AppModels}" /> 
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Name="BottomGrid" Background="DarkSlateGray" >
+           <View:AppsView AppModels="{Binding AppModels}"/> 
         </Grid>
     </Grid>
 </Window>

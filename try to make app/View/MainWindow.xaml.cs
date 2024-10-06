@@ -18,8 +18,8 @@ namespace try_to_make_app
         public MainWindow(DataWorker dataWorker)
         {
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dataWorker);
-            InitializeComponent(); 
             this.DataContext = mainWindowViewModel;
+            InitializeComponent(); 
         }
     }
 }
