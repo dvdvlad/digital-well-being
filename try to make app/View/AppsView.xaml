@@ -7,8 +7,17 @@
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="600">
     <Grid Background="DarkSlateGray">
-        <WrapPanel Name="Panel">
-           
-        </WrapPanel>
+        <ItemsControl ItemsSource="{Binding AppModels}" Name="ItemsControl">
+            <ItemsControl.ItemTemplate>
+                <DataTemplateh  
+                    <Button Content="{Binding Name}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Name="Panel"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </Grid>
 </UserControl>

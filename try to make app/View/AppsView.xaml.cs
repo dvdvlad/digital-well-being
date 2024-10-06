@@ -26,24 +26,8 @@ public partial class AppsView : UserControl
     {
         InitializeComponent();
     }
-
-    private void DrawApps(ICollection<AppModel> appModels)
-    { 
-        Panel.Children.Clear();
-        foreach (var app in appModels)
-        {
-            Panel.Children.Add(new Button{Content = app.Name});
-        }
-    }
     private static void OnvaluesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (e.NewValue is ICollection<AppModel> apps)
-        {
-            Console.WriteLine(apps.Count);
-            if (d is AppsView appsView)
-            {
-               appsView.DrawApps(apps); 
-            } 
-        }
+
     }
 }
