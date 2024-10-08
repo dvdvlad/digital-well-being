@@ -5,17 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:try_to_make_app.View"
              mc:Ignorable="d"
-             d:DesignHeight="200" d:DesignWidth="600">
+             d:DesignHeight="200" d:DesignWidth="600"
+             Name="appsview">
     <Grid Background="DarkSlateGray">
         <ItemsControl ItemsSource="{Binding AppModels}" Name="ItemsControl">
             <ItemsControl.ItemTemplate>
-                <DataTemplateh  
-                    <Button Content="{Binding Name}"/>
+                <DataTemplate>
+                    <Button Content="{Binding Name}" Command="{Binding ElementName = appsview,Path=ButtonComand}" CommandParameter="{Binding Name}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Name="Panel"/>
+                    <WrapPanel Name="Panel" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

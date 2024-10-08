@@ -10,7 +10,8 @@ public partial class AppWindow : UserControl
     private AppWindowViewModel AppWindowViewModel; 
     public AppWindow(AppWindowViewModel appWindowViewModel)
     {
-        InitializeComponent();
+        AppWindowViewModel = appWindowViewModel;
         this.DataContext = AppWindowViewModel;
+        InitializeComponent();
     }
 }

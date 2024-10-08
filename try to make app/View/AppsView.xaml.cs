@@ -22,10 +22,26 @@ public partial class AppsView : UserControl
         set => SetValue(AppsProperty, value);
     }
 
+    public static readonly DependencyProperty CommandProperty= DependencyProperty.Register(
+        nameof(ButtonComand), typeof(RelayComand), typeof(AppsView),
+        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange, OnvaluesChanged));
+    public RelayComand ButtonComand 
+    {
+        get => (RelayComand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
     public AppsView()
     {
         InitializeComponent();
     }
+
+    public AppsView(RelayComand comand, ObservableCollection<AppModel> appModels)
+    {
+        AppModels = appModels;
+        ButtonComand = comand;
+        InitializeComponent();
+    }
+    
     private static void OnvaluesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
 

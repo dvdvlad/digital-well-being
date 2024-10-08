@@ -18,7 +18,7 @@ public partial class HorizontallyChart : UserControl
     public static readonly DependencyProperty LabelsProperty =
         DependencyProperty.Register(
             nameof(Labels), typeof(List<string>), typeof(HorizontallyChart),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange, OnvaluesChanged));
+            new FrameworkPropertyMetadata(new List<string> {"1","1","1","1","1","1","1"}, FrameworkPropertyMetadataOptions.AffectsArrange, OnvaluesChanged));
 
     public List<double> Values
     {

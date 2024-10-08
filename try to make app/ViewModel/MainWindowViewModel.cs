@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using Microsoft.EntityFrameworkCore;
 using try_to_make_app.Database_things;
@@ -13,8 +14,7 @@ namespace try_to_make_app.ViewModel;
 public class MainWindowViewModel : BaseViewModel, IObserver
 {
     public DataWorker DataWorker;
-    public double LeftAngel = 0.0;
-    public double RightAngel = 180.0;
+
     private ObservableCollection<AppModel> _appModels;
 
     public ObservableCollection<AppModel> AppModels
@@ -22,10 +22,49 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         get => _appModels;
         set
         {
-            _appModels= value;
+            _appModels = value;
             OnPropertyChanged("AppModels");
         }
     }
+
+    private UserControl _selectedusercontrol;
+
+    public UserControl SelectedUserControl
+    {
+        get { return _selectedusercontrol; }
+        set
+        {
+            _selectedusercontrol = value;
+            OnPropertyChanged("SelectedUserControl");
+        }
+    }
+
+    private AppsView _appsView;
+    public AppsView AppsView
+    {
+        set { _appsView = value; }
+        get
+        {
+            if (_appsView == null)
+            {
+                _appsView = new AppsView(CreateAppWindowComand,AppModels);
+            }
+
+            return _appsView;
+        }
+    }
+
+    public RelayComand CreateAppWindowComand =>
+        _createAppWindow ??= new RelayComand(execute => CreateAppWindow(execute as string), canExecute => { return true; });
+
+    private RelayComand _createAppWindow;
+
+    private void CreateAppWindow(string AppName)
+    {
+        Console.WriteLine("123123213121312112");
+       SelectedUserControl = new AppWindow(new AppWindowViewModel(AppName));
+    }
+
 
     private List<double> _pievalues;
 
@@ -122,6 +161,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
     public MainWindowViewModel(DataWorker dataWorker)
     {
         DataWorker = dataWorker;
+        SelectedUserControl = AppsView;
         using (ApplicationContext db = new ApplicationContext())
         {
             try
