@@ -219,17 +219,23 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         using (ApplicationContext db = new ApplicationContext())
         {
             List<DayModel> lastSevenDayModels = new List<DayModel>();
-            if (db.Days.Count() >= 7)
+            if (DayID >= 7)
             {
-                for (int i = db.Days.Count() - 1; i > db.Days.Count() - 7; i--)
+                for (int i = DayID - 1; i > DayID - 7; i--)
                 {
-                    DayModel dayModel = db.Days.Include(d => d.AppDays).ToArray()[i];
-                    lastSevenDayModels.Add(dayModel);
+                    DayModel dayModel = db.Days.Include(d => d.AppDays).FirstOrDefault(d => d.ID == i);
+                    if (dayModel != null)
+                    {
+                        lastSevenDayModels.Add(dayModel);
+                    }
                 }
             }
             else
             {
-                lastSevenDayModels = db.Days.Include(d => d.AppDays).ToList();
+                lastSevenDayModels = db.Days.Include(d => d.AppDays)
+                    .Where(d => d.ID <= DayID)
+                    .OrderByDescending(d => d.ID)
+                    .ToList();
             }
 
             return lastSevenDayModels;
@@ -238,21 +244,34 @@ public class MainWindowViewModel : BaseViewModel, IObserver
 
     private List<double> GetHorizontallyChartValues()
     {
-        List<double> HorizontallyChartValues = new List<double>();
-        foreach (var daymodel in GetLastSevenDayModel())
-        {
-            HorizontallyChartValues.Add(daymodel.AppDays.Select(ad => ad.WorkTimeToDay).Sum());
-        }
+        List<double> horizontallyChartValues = new List<double>();
+        var lastSevenDays = GetLastSevenDayModel();
 
-        if (HorizontallyChartValues.Count < 7)
+        using (ApplicationContext db = new ApplicationContext())
         {
-            while (HorizontallyChartValues.Count < 7)
+            var currentDay = db.Days.FirstOrDefault(d => d.ID == DayID);
+            if (currentDay != null)
             {
-                HorizontallyChartValues.Add(0.0);
+                var today = currentDay.Today;
+
+                for (int i = 6; i >= 0; i--)
+                {
+                    var targetDate = today.AddDays(-i);
+                    var dayModel = lastSevenDays.FirstOrDefault(d => d.Today.Date == targetDate.Date);
+
+                    if (dayModel != null)
+                    {
+                        horizontallyChartValues.Add(dayModel.AppDays.Select(ad => ad.WorkTimeToDay).Sum());
+                    }
+                    else
+                    {
+                        horizontallyChartValues.Add(0.0);
+                    }
+                }
             }
         }
 
-        return HorizontallyChartValues;
+        return horizontallyChartValues;
     }
 
     private ObservableCollection<AppModel> GetAppModels()
@@ -265,21 +284,25 @@ public class MainWindowViewModel : BaseViewModel, IObserver
 
     private List<string> GetHorizontallyChartLabels()
     {
-        List<string> HorizontallyChartLabels = new List<string>();
-        foreach (var dayModel in GetLastSevenDayModel())
-        {
-            string label = dayModel.Today.Day.ToString();
-            HorizontallyChartLabels.Add(label);
-        }
+        List<string> horizontallyChartLabels = new List<string>();
+        var lastSevenDays = GetLastSevenDayModel();
+        var today = DateTime.Today;
 
-        if (HorizontallyChartLabels.Count < 7)
+        for (int i = 6; i >= 0; i--)
         {
-            while (HorizontallyChartLabels.Count < 7)
+            var targetDate = today.AddDays(-i);
+            var dayModel = lastSevenDays.FirstOrDefault(d => d.Today.Date == targetDate.Date);
+
+            if (dayModel != null)
             {
-                HorizontallyChartLabels.Add(" ");
+                horizontallyChartLabels.Add(dayModel.Today.Day.ToString());
+            }
+            else
+            {
+                horizontallyChartLabels.Add(targetDate.Day.ToString());
             }
         }
 
-        return HorizontallyChartLabels;
+        return horizontallyChartLabels;
     }
 }
