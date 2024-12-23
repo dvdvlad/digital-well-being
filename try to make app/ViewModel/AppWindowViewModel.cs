@@ -19,20 +19,23 @@ public class AppWindowViewModel : BaseViewModel, IObserver
             OnPropertyChanged("AllowedTime");
         }
     }
+
     private DateTime _alloweDateTime = DateTime.MinValue;
 
     private List<double> _weekusadgetime = new List<double>();
+
     public List<double> WeekUsadgeTime
     {
         get => _weekusadgetime;
         set
         {
-            _weekusadgetime= value;
+            _weekusadgetime = value;
             OnPropertyChanged("WeekUsadgeTime");
         }
     }
 
-    private string _appname ="noname";
+    private string _appname = "noname";
+
     public string AppName
     {
         get => _appname;
@@ -42,7 +45,18 @@ public class AppWindowViewModel : BaseViewModel, IObserver
             OnPropertyChanged("AllowedTime");
         }
     }
-    
+
+    private RelayComand _backToAppsViewCommand;
+    public RelayComand BackToAppsViewCommand
+    {
+        get => _backToAppsViewCommand;
+        private set
+        {
+            _backToAppsViewCommand = value;
+            OnPropertyChanged(nameof(BackToAppsViewCommand));
+        }
+    }
+
     public int AppID = 1;
 
     private DateTime getAlloWedTime(int AppID)
@@ -71,9 +85,10 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         }
     }
 
-    public AppWindowViewModel(string appname)
+    public AppWindowViewModel(string appname, RelayComand backViewCommand)
     {
         AppModel appModel = new AppModel();
+        BackToAppsViewCommand = backViewCommand;
         using (ApplicationContext db = new ApplicationContext())
         {
             appModel = db.Apps.Include(ap => ap.AppDays).Where(ap => ap.Name == appname).FirstOrDefault();
@@ -84,6 +99,7 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         AllowedTime = appModel.AllowedTime;
         WeekUsadgeTime = appModel.AppDays.Select(am => am.WorkTimeToDay).ToList();
     }
+
     public void Update()
     {
         getWeekUsadgeTime(AppID);

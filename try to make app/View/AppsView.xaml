@@ -11,7 +11,7 @@
         <ItemsControl ItemsSource="{Binding AppModels}" Name="ItemsControl">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Name}" Command="{Binding ElementName = appsview,Path=ButtonComand}" CommandParameter="{Binding Name}"/>
+                    <Button Content="{Binding Name}" Command="{Binding ElementName = appsview,Path=ButtonAppComand}" CommandParameter="{Binding Name}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>

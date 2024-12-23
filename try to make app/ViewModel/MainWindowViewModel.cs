@@ -40,6 +40,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
     }
 
     private AppsView _appsView;
+
     public AppsView AppsView
     {
         set { _appsView = value; }
@@ -47,7 +48,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         {
             if (_appsView == null)
             {
-                _appsView = new AppsView(CreateAppWindowComand,AppModels);
+                _appsView = new AppsView(CreateAppWindowComand, AppModels);
             }
 
             return _appsView;
@@ -55,16 +56,25 @@ public class MainWindowViewModel : BaseViewModel, IObserver
     }
 
     public RelayComand CreateAppWindowComand =>
-        _createAppWindow ??= new RelayComand(execute => CreateAppWindow(execute as string), canExecute => { return true; });
+        _createAppWindow ??=
+            new RelayComand(execute => CreateAppWindow(execute as string), canExecute => { return true; });
 
     private RelayComand _createAppWindow;
 
     private void CreateAppWindow(string AppName)
     {
-        Console.WriteLine("123123213121312112");
-       SelectedUserControl = new AppWindow(new AppWindowViewModel(AppName));
+        SelectedUserControl = new AppWindow(new AppWindowViewModel(AppName, BackToAppsViewCommand));
     }
 
+    public RelayComand BackToAppsViewCommand =>
+        _backToAppsView ??= new RelayComand(execute => BackToAppsView(), canExecute => { return true; });
+
+    private RelayComand _backToAppsView;
+
+    private void BackToAppsView()
+    {
+        SelectedUserControl = AppsView;
+    }
 
     private List<double> _pievalues;
 
@@ -112,6 +122,14 @@ public class MainWindowViewModel : BaseViewModel, IObserver
             _horizontallychartlabels = value;
             OnPropertyChanged("HorizontallyChartLabels");
         }
+    }
+
+    private DateTime currentDate = DateTime.Now.Date;
+
+    private DateTime CurrentDate
+    {
+        get { return currentDate; }
+        set { currentDate = value; }
     }
 
     private int dayID = 1;
@@ -188,64 +206,60 @@ public class MainWindowViewModel : BaseViewModel, IObserver
         {
             HorizontallyChartLabels = GetHorizontallyChartLabels();
             HorizontallyCharyValues = GetHorizontallyChartValues();
-            PieLabels = GetAppsLabels(DayID);
-            PieValues = GetAppsValues(DayID);
+            PieLabels = GetAppsLabels();
+            PieValues = GetAppsValues();
             AppModels = GetAppModels();
         }
     }
 
-    private List<double> GetAppsValues(int dayID)
+    private List<double> GetAppsValues()
     {
-        using (ApplicationContext db = new ApplicationContext())
+        var lastSevenDays = GetLastSevenDayModels();
+        var dayModel = lastSevenDays.FirstOrDefault(d => d.ID == dayID);
+
+        if (dayModel != null)
         {
-            List<AppDay> appDays = db.Apps.SelectMany(ap => ap.AppDays.Where(ad => ad.DayId == dayID)).ToList();
-            List<double> appValues = appDays.Select(ad => ad.WorkTimeToDay).ToList();
-            return appValues;
+            return dayModel.AppDays.Select(ad => ad.WorkTimeToDay).ToList();
         }
+
+        return new List<double>();
     }
 
-    private List<string> GetAppsLabels(int dayID)
+    private List<string> GetAppsLabels()
     {
+        List<string> appLabels = new List<string>();
         using (ApplicationContext db = new ApplicationContext())
         {
-            List<AppModel> appModels = db.Apps.Where(ap => ap.AppDays.Any(ad => ad.DayId == dayID)).ToList();
-            List<string> applabels = appModels.Select(ap => ap.Name).ToList();
-            return applabels;
+            appLabels.AddRange(db.Apps.Where(ap => ap.AppDays.Any(ad => ad.Day.Today == CurrentDate))
+                .Select(ap => ap.Name));
         }
+
+        return appLabels;
     }
 
-    private List<DayModel> GetLastSevenDayModel()
+    private List<DayModel> GetLastSevenDayModels()
     {
-        using (ApplicationContext db = new ApplicationContext())
+        List<DayModel> lastSevenDayModels = new List<DayModel>();
+        for (int i = 0; i < 7; i++)
         {
-            List<DayModel> lastSevenDayModels = new List<DayModel>();
-            if (DayID >= 7)
+            DateTime date = CurrentDate.AddDays(-i);
+            using (ApplicationContext db = new ApplicationContext())
             {
-                for (int i = DayID - 1; i > DayID - 7; i--)
+                var dayModel = db.Days.Include(d => d.AppDays).FirstOrDefault(d => d.Today.Date == date.Date);
+                if (dayModel != null)
                 {
-                    DayModel dayModel = db.Days.Include(d => d.AppDays).FirstOrDefault(d => d.ID == i);
-                    if (dayModel != null)
-                    {
-                        lastSevenDayModels.Add(dayModel);
-                    }
+                    lastSevenDayModels.Add(dayModel);
                 }
             }
-            else
-            {
-                lastSevenDayModels = db.Days.Include(d => d.AppDays)
-                    .Where(d => d.ID <= DayID)
-                    .OrderByDescending(d => d.ID)
-                    .ToList();
-            }
-
-            return lastSevenDayModels;
         }
+
+        return lastSevenDayModels;
     }
 
     private List<double> GetHorizontallyChartValues()
     {
         List<double> horizontallyChartValues = new List<double>();
-        var lastSevenDays = GetLastSevenDayModel();
+        var lastSevenDays = GetLastSevenDayModels();
 
         using (ApplicationContext db = new ApplicationContext())
         {
@@ -285,7 +299,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
     private List<string> GetHorizontallyChartLabels()
     {
         List<string> horizontallyChartLabels = new List<string>();
-        var lastSevenDays = GetLastSevenDayModel();
+        var lastSevenDays = GetLastSevenDayModels();
         var today = DateTime.Today;
 
         for (int i = 6; i >= 0; i--)

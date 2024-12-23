@@ -13,12 +13,12 @@ public partial class HorizontallyChart : UserControl
 {
     public static readonly DependencyProperty ValuesProperty = DependencyProperty.Register(
         nameof(Values), typeof(List<double>), typeof(HorizontallyChart),
-        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange, OnvaluesChanged));
+        new FrameworkPropertyMetadata(defaultValue:new List<double> {0,0,0,0,0,0,0,0}, FrameworkPropertyMetadataOptions.AffectsArrange, OnvaluesChanged));
 
     public static readonly DependencyProperty LabelsProperty =
         DependencyProperty.Register(
             nameof(Labels), typeof(List<string>), typeof(HorizontallyChart),
-            new FrameworkPropertyMetadata(new List<string> {"1","1","1","1","1","1","1"}, FrameworkPropertyMetadataOptions.AffectsArrange, OnvaluesChanged));
+            new FrameworkPropertyMetadata(new List<string> {"1","2","3","4","5","6","7"}, FrameworkPropertyMetadataOptions.AffectsArrange, OnvaluesChanged));
 
     public List<double> Values
     {
