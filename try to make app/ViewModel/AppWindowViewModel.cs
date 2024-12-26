@@ -20,6 +20,8 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         }
     }
 
+    private DateTime currentDate;
+
     private DateTime _alloweDateTime = DateTime.MinValue;
 
     private List<double> _weekusadgetime = new List<double>();
@@ -29,7 +31,7 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         get => _weekusadgetime;
         set
         {
-            _weekusadgetime = value;
+            _weekusadgetime = value;   
             OnPropertyChanged("WeekUsadgeTime");
         }
     }
@@ -47,6 +49,7 @@ public class AppWindowViewModel : BaseViewModel, IObserver
     }
 
     private RelayComand _backToAppsViewCommand;
+
     public RelayComand BackToAppsViewCommand
     {
         get => _backToAppsViewCommand;
@@ -54,6 +57,49 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         {
             _backToAppsViewCommand = value;
             OnPropertyChanged(nameof(BackToAppsViewCommand));
+        }
+    }
+
+    public RelayComand PreviusDayCommand =>
+        _previusDayCommand ??= new RelayComand(execute => PreviusDayMethod(), canExecute => { return true; });
+
+    private RelayComand _previusDayCommand;
+
+    private void PreviusDayMethod()
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            try
+            {
+                this.currentDate = this.currentDate.AddDays(-1);
+                Update();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e+""+ currentDate);
+            }
+        }
+    }
+
+    public RelayComand NextDayCommand =>
+        _nextDayCommand ??= new RelayComand(execute => NexDayMethod(), canExecute => { return true; });
+
+    private RelayComand _nextDayCommand;
+
+    private void NexDayMethod()
+    {
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            try
+            {
+                this.currentDate = this.currentDate.AddDays(-1);
+                
+                Update();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e+"test"+ currentDate);
+            }
         }
     }
 
@@ -75,18 +121,35 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         }
     }
 
-    private List<DateTime> getWeekUsadgeTime(int AppID)
+    private void getWeekUsadgeTime(int AppID)
     {
+        List<double> weekusadgetime = new List<double>();
         using (ApplicationContext db = new ApplicationContext())
         {
-            var appModels = db.Apps.Include(ap => ap.AppDays);
-            List<DateTime> allowedTimes = appModels.Where(ap => ap.ID == AppID).Select(ap => ap.AllowedTime).ToList();
-            return allowedTimes;
+            List<AppDay> Appdays = db.Apps
+                .Where(ap => ap.ID == AppID)
+                .Include(am => am.AppDays)
+                .Include(am=>am.Days)
+                .FirstOrDefault()
+                ?.AppDays
+                .ToList() ?? new List<AppDay>();
+
+            for (int i = 6; i >= 0; i--)
+            {
+                DateTime date = currentDate.AddDays(-i);
+                AppDay appDay = Appdays
+                    .FirstOrDefault(ad => ad.Day?.Today.Date == date.Date);
+                
+                weekusadgetime.Add(appDay?.WorkTimeToDay ?? 0.0);
+            }
         }
+
+        WeekUsadgeTime=weekusadgetime;
     }
 
     public AppWindowViewModel(string appname, RelayComand backViewCommand)
     {
+        currentDate = DateTime.Now;
         AppModel appModel = new AppModel();
         BackToAppsViewCommand = backViewCommand;
         using (ApplicationContext db = new ApplicationContext())
@@ -97,13 +160,11 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         AppID = appModel.ID;
         AppName = appModel.Name;
         AllowedTime = appModel.AllowedTime;
-        WeekUsadgeTime = appModel.AppDays.Select(am => am.WorkTimeToDay).ToList();
     }
 
     public void Update()
     {
         getWeekUsadgeTime(AppID);
         getAppName(AppID);
-        getWeekUsadgeTime(AppID);
     }
 }
