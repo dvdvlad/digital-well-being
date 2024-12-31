@@ -8,7 +8,8 @@ namespace try_to_make_app.View;
 
 public partial class AppWindow : UserControl
 {
-    private AppWindowViewModel AppWindowViewModel; 
+    private AppWindowViewModel AppWindowViewModel;
+
     public AppWindow(AppWindowViewModel appWindowViewModel)
     {
         AppWindowViewModel = appWindowViewModel;
@@ -16,8 +17,12 @@ public partial class AppWindow : UserControl
         InitializeComponent();
     }
 
-    private void UIElement_OnLostFocus(object sender, RoutedEventArgs e)
+    private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        Console.WriteLine("FAFAFS");
+        if (DataContext is AppWindowViewModel appWindowViewModel)
+        {
+            appWindowViewModel.TextCHTimer.Stop();
+            appWindowViewModel.TextCHTimer.Start();
+        }
     }
 }

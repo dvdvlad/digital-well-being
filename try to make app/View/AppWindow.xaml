@@ -44,7 +44,7 @@
                 <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="DarkGray"
                            RadiusX="10" RadiusY="10" Margin="2" />
                 <TextBox Grid.Column="2" Grid.Row="1" Margin="4" Text="1" FontSize="15"
-                         LostFocus="UIElement_OnLostFocus" />
+                         TextChanged="TextBox_TextChanged"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Ч:" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
             </Grid>

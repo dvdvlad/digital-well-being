@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using System.Windows.Documents;
 using Microsoft.EntityFrameworkCore;
 using try_to_make_app.Database_things;
@@ -10,6 +11,7 @@ namespace try_to_make_app.ViewModel;
 
 public class AppWindowViewModel : BaseViewModel, IObserver
 {
+    public Timer TextCHTimer;
     public DateTime AllowedTime
     {
         get => _alloweDateTime;
@@ -149,6 +151,9 @@ public class AppWindowViewModel : BaseViewModel, IObserver
 
     public AppWindowViewModel(string appname, RelayComand backViewCommand)
     {
+        TextCHTimer = new Timer(3000);
+        TextCHTimer.Elapsed += textCHTimerOnElapsed;
+        TextCHTimer.AutoReset = false;
         currentDate = DateTime.Now;
         AppModel appModel = new AppModel();
         BackToAppsViewCommand = backViewCommand;
@@ -160,6 +165,13 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         AppID = appModel.ID;
         AppName = appModel.Name;
         AllowedTime = appModel.AllowedTime;
+    }
+
+    private void textCHTimerOnElapsed(object? sender, ElapsedEventArgs e)
+    {
+        Console.WriteLine("текст сохронён");        
+        Console.WriteLine(sender);        
+        Console.WriteLine(e);        
     }
 
     public void Update()
