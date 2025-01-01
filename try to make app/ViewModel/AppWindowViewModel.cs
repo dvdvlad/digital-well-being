@@ -22,6 +22,24 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         }
     }
 
+    public int AllowedTimeHour
+    {
+        get => _alloweDateTime.Hour;
+        set
+        {
+            _alloweDateTime = AllowedTime.AddHours(-AllowedTime.Hour);
+            _alloweDateTime =  AllowedTime.AddHours(value);
+        }
+    }
+    public int AllowedTimeMinute
+    {
+        get => _alloweDateTime.Minute;
+        set
+        {
+            _alloweDateTime = AllowedTime.AddMinutes(-AllowedTime.Minute);
+            _alloweDateTime =  AllowedTime.AddMinutes(value);
+        }
+    }
     private DateTime currentDate;
 
     private DateTime _alloweDateTime = DateTime.MinValue;
@@ -169,9 +187,7 @@ public class AppWindowViewModel : BaseViewModel, IObserver
 
     private void textCHTimerOnElapsed(object? sender, ElapsedEventArgs e)
     {
-        Console.WriteLine("текст сохронён");        
-        Console.WriteLine(sender);        
-        Console.WriteLine(e);        
+        
     }
 
     public void Update()
