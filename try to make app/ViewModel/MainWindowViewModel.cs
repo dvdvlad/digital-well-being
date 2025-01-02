@@ -215,6 +215,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
     private List<double> GetAppsValues()
     {
         var lastSevenDays = GetLastSevenDayModels();
+        //TODO: сдлеать зависемым от значения текущего дня 
         var dayModel = lastSevenDays.FirstOrDefault(d => d.ID == dayID);
 
         if (dayModel != null)
@@ -275,7 +276,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
 
                     if (dayModel != null)
                     {
-                        horizontallyChartValues.Add(dayModel.AppDays.Select(ad => ad.WorkTimeToDay).Sum());
+                        horizontallyChartValues.Add(dayModel.AppDays.Select(ad => ad.WorkTimeToDay.TimeOfDay.TotalSeconds).Sum());
                     }
                     else
                     {
