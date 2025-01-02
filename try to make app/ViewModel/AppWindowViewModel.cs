@@ -12,6 +12,7 @@ namespace try_to_make_app.ViewModel;
 public class AppWindowViewModel : BaseViewModel, IObserver
 {
     public Timer TextCHTimer;
+
     public DateTime AllowedTime
     {
         get => _alloweDateTime;
@@ -27,31 +28,31 @@ public class AppWindowViewModel : BaseViewModel, IObserver
         get => _alloweDateTime.Hour;
         set
         {
-            _alloweDateTime = AllowedTime.AddHours(-AllowedTime.Hour);
-            _alloweDateTime =  AllowedTime.AddHours(value);
+            _alloweDateTime = DateTime.MinValue.AddHours(value);
         }
     }
+
     public int AllowedTimeMinute
     {
         get => _alloweDateTime.Minute;
         set
         {
-            _alloweDateTime = AllowedTime.AddMinutes(-AllowedTime.Minute);
-            _alloweDateTime =  AllowedTime.AddMinutes(value);
+            _alloweDateTime = DateTime.MinValue.AddMinutes(value);
         }
     }
+
     private DateTime currentDate;
 
     private DateTime _alloweDateTime = DateTime.MinValue;
 
-    private List<double> _weekusadgetime = new List<double>();
+    private List<DateTime> _weekusadgetime = new List<DateTime>();
 
-    public List<double> WeekUsadgeTime
+    public List<DateTime> WeekUsadgeTime
     {
         get => _weekusadgetime;
         set
         {
-            _weekusadgetime = value;   
+            _weekusadgetime = value;
             OnPropertyChanged("WeekUsadgeTime");
         }
     }
@@ -96,7 +97,7 @@ public class AppWindowViewModel : BaseViewModel, IObserver
             }
             catch (Exception e)
             {
-                Console.WriteLine(e+""+ currentDate);
+                Console.WriteLine(e + "" + currentDate);
             }
         }
     }
@@ -113,12 +114,12 @@ public class AppWindowViewModel : BaseViewModel, IObserver
             try
             {
                 this.currentDate = this.currentDate.AddDays(-1);
-                
+
                 Update();
             }
             catch (Exception e)
             {
-                Console.WriteLine(e+"test"+ currentDate);
+                Console.WriteLine(e + "test" + currentDate);
             }
         }
     }
@@ -143,13 +144,13 @@ public class AppWindowViewModel : BaseViewModel, IObserver
 
     private void getWeekUsadgeTime(int AppID)
     {
-        List<double> weekusadgetime = new List<double>();
+        List<DateTime> weekusadgetime = new List<DateTime>();
         using (ApplicationContext db = new ApplicationContext())
         {
             List<AppDay> Appdays = db.Apps
                 .Where(ap => ap.ID == AppID)
                 .Include(am => am.AppDays)
-                .Include(am=>am.Days)
+                .Include(am => am.Days)
                 .FirstOrDefault()
                 ?.AppDays
                 .ToList() ?? new List<AppDay>();
@@ -159,12 +160,12 @@ public class AppWindowViewModel : BaseViewModel, IObserver
                 DateTime date = currentDate.AddDays(-i);
                 AppDay appDay = Appdays
                     .FirstOrDefault(ad => ad.Day?.Today.Date == date.Date);
-                
-                weekusadgetime.Add(appDay?.WorkTimeToDay ?? 0.0);
+
+                weekusadgetime.Add(appDay?.WorkTimeToDay ?? currentDate.AddDays(-i));
             }
         }
 
-        WeekUsadgeTime=weekusadgetime;
+        WeekUsadgeTime = weekusadgetime;
     }
 
     public AppWindowViewModel(string appname, RelayComand backViewCommand)
@@ -187,7 +188,11 @@ public class AppWindowViewModel : BaseViewModel, IObserver
 
     private void textCHTimerOnElapsed(object? sender, ElapsedEventArgs e)
     {
-        
+        using (ApplicationContext db = new ApplicationContext())
+        {
+            db.Apps.FirstOrDefault(ap => ap.ID== this.AppID).AllowedTime = this.AllowedTime;
+            db.SaveChanges();
+        }
     }
 
     public void Update()
