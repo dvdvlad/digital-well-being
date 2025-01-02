@@ -219,7 +219,7 @@ public class MainWindowViewModel : BaseViewModel, IObserver
 
         if (dayModel != null)
         {
-            return dayModel.AppDays.Select(ad => ad.WorkTimeToDay).ToList();
+            return dayModel.AppDays.Select(ad => ad.WorkTimeToDay.TimeOfDay.TotalSeconds).ToList();
         }
 
         return new List<double>();

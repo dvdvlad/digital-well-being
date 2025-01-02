@@ -30,7 +30,7 @@ public class ApplicationContext : DbContext
                     .HasForeignKey(ad => ad.DayId),
                 j =>
                 {
-                    j.Property(pt => pt.WorkTimeToDay).HasDefaultValue(0);
+                    j.Property(pt => pt.WorkTimeToDay).HasDefaultValue(DateTime.MinValue);
                     j.HasKey(t => new { t.DayId, t.AppId});
                     j.ToTable("AppDay");
                 });

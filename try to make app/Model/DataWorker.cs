@@ -87,7 +87,7 @@ public class DataWorker : IObservable
                             {
                                 if (ad.DayId ==DayID)
                                 {
-                                    ad.WorkTimeToDay += 1.0;
+                                    ad.WorkTimeToDay = ad.WorkTimeToDay.AddSeconds(1.0);
                                         db.SaveChanges();
                                 }
                             }

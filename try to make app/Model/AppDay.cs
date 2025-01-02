@@ -1,3 +1,5 @@
+using System;
+
 namespace try_to_make_app.Database_things;
 
 public class AppDay
@@ -7,8 +9,7 @@ public class AppDay
 
     public int DayId { get; set; }
     public DayModel Day { get; set; }
-    
-    public double WorkTimeToDay { get; set; }
+    public DateTime WorkTimeToDay { get; set; }
 
     public AppDay(DayModel dayModel, AppModel appModel)
     {
