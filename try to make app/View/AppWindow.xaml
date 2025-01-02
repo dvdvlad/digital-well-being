@@ -44,7 +44,7 @@
                 <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="DarkGray"
                            RadiusX="10" RadiusY="10" Margin="2" />
                 <TextBox Grid.Column="2" Grid.Row="1" Margin="4" Text="{Binding AllowedTimeHour}" FontSize="15"
-                         TextChanged="TextBox_TextChanged" />
+                         LostKeyboardFocus="TextBox_TextChanged" Name="TextBoxHours"/>
                 <TextBlock Grid.Row="1" Grid.Column="0"  Text="Ч:" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
             </Grid>
@@ -60,7 +60,8 @@
                 </Grid.RowDefinitions>
                 <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="DarkGray"
                            RadiusX="10" RadiusY="10" Margin="2" />
-                <TextBox Grid.Column="2" Grid.Row="1" Margin="4" Text="{Binding AllowedTimeMinute}" />
+                <TextBox Grid.Column="2" Grid.Row="1" Margin="4" Text="{Binding AllowedTimeMinute}"
+                         LostKeyboardFocus="TextBox_TextChanged" Name="TextBoxMinute"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Мин:" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
             </Grid>
