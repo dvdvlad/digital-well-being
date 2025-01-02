@@ -19,7 +19,6 @@ public class SecondThread
 
     public void MainTwo()
     {
-        
         while (true)
         {
             using (ApplicationContext db = new ApplicationContext())
@@ -33,9 +32,19 @@ public class SecondThread
                 }
 
                 DataWorker.CreateAddNewApps(getrunprocess, dayModel.ID);
-                DataWorker.UpdateApps(dayModel.ID,getrunprocess);
+                DataWorker.UpdateApps(dayModel.ID, getrunprocess);
+                foreach (var runpr in getrunprocess)
+                {
+                    AppModel appModelrun = db.Apps.Include(ap => ap.AppDays).FirstOrDefault(ap => ap.Name == runpr.ProcessName);
+                    var appModelrunAppDay = appModelrun.AppDays.FirstOrDefault(ad => ad.Day.Today == DateTime.Today);
+                    if (appModelrunAppDay != null && appModelrun.AllowedTime.TimeOfDay <= appModelrunAppDay.WorkTimeToDay.TimeOfDay)
+                    {
+                        runpr.CloseMainWindow();
+                    }
+                }
             }
-            DataWorker.Notify(); 
+
+            DataWorker.Notify();
             Thread.Sleep(100);
         }
     }
